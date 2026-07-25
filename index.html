@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CNAB SDK — Brazilian CNAB 240/400 bank files, in five languages</title>
+<meta name="description" content="A modern, multi-language SDK to parse and generate Brazilian CNAB 240/400 bank files (boleto/cobrança, remessa & retorno). One engine, one verifiable spec, published to Node, Python, Java and .NET.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f6f8fa;
+    --fg: #1f2328;
+    --fg-muted: #59636e;
+    --border: #d1d9e0;
+    --accent: #0969da;
+    --accent-soft: #ddf4ff;
+    --code-bg: #f6f8fa;
+    --warn-bg: #fff8c5;
+    --warn-border: #d4a72c;
+    --ok: #1a7f37;
+    --off: #9a6700;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117; --bg-soft: #151b23; --fg: #e6edf3; --fg-muted: #9198a1;
+      --border: #3d444d; --accent: #4493f8; --accent-soft: #121d2f;
+      --code-bg: #151b23; --warn-bg: #282215; --warn-border: #9e6a03;
+      --ok: #3fb950; --off: #d29922;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --bg-soft: #151b23; --fg: #e6edf3; --fg-muted: #9198a1;
+    --border: #3d444d; --accent: #4493f8; --accent-soft: #121d2f;
+    --code-bg: #151b23; --warn-bg: #282215; --warn-border: #9e6a03;
+    --ok: #3fb950; --off: #d29922;
+  }
+  :root[data-theme="light"] {
+    --bg: #ffffff; --bg-soft: #f6f8fa; --fg: #1f2328; --fg-muted: #59636e;
+    --border: #d1d9e0; --accent: #0969da; --accent-soft: #ddf4ff;
+    --code-bg: #f6f8fa; --warn-bg: #fff8c5; --warn-border: #d4a72c;
+    --ok: #1a7f37; --off: #9a6700;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Noto Sans, Helvetica, Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 80px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+  code { background: var(--code-bg); padding: .15em .4em; border-radius: 6px; font-size: .875em; }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px; overflow-x: auto; font-size: .85rem; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  h1, h2, h3 { line-height: 1.25; }
+  h2 {
+    margin-top: 3rem; padding-bottom: .3em; border-bottom: 1px solid var(--border);
+    font-size: 1.5rem;
+  }
+  h3 { margin-top: 2rem; font-size: 1.1rem; }
+
+  header { border-bottom: 1px solid var(--border); background: var(--bg-soft); }
+  header .wrap { padding-top: 48px; padding-bottom: 40px; }
+  .title { font-size: 2.4rem; margin: 0 0 .3em; letter-spacing: -.02em; }
+  .tagline { font-size: 1.15rem; color: var(--fg-muted); margin: 0 0 1.5em; max-width: 70ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-block; padding: 9px 18px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--bg); font-weight: 600; font-size: .95rem;
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { filter: brightness(1.08); text-decoration: none; }
+  .btn:hover { text-decoration: none; border-color: var(--accent); }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.5em 0 0; }
+  .badge {
+    font-size: .78rem; padding: 3px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); border: 1px solid var(--border);
+    font-weight: 600;
+  }
+
+  .table-scroll { overflow-x: auto; margin: 1.2em 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  th, td { text-align: left; padding: 9px 14px; border: 1px solid var(--border); }
+  th { background: var(--bg-soft); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .note {
+    border-left: 4px solid var(--warn-border); background: var(--warn-bg);
+    padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 1.5em 0;
+  }
+  .note strong { display: block; margin-bottom: .3em; }
+  :root[data-theme="dark"] .note, .note { color: var(--fg); }
+
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 1.5em 0; }
+  .card { border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; background: var(--bg-soft); }
+  .card h3 { margin: 0 0 .4em; font-size: 1rem; }
+  .card p { margin: 0; font-size: .9rem; color: var(--fg-muted); }
+
+  .yes { color: var(--ok); font-weight: 600; }
+  .no  { color: var(--off); font-weight: 600; }
+
+  footer {
+    border-top: 1px solid var(--border); margin-top: 4rem; padding-top: 1.5rem;
+    color: var(--fg-muted); font-size: .88rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1 class="title">CNAB SDK</h1>
+    <p class="tagline">
+      Parse and generate Brazilian <strong>CNAB 240/400</strong> bank files —
+      boleto/cobrança, remessa and retorno — from one TypeScript engine and one
+      verifiable spec, projected to Node, Python, Java and .NET.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="./api/">API reference →</a>
+      <a class="btn" href="https://github.com/cnab/CNAB-SDK">GitHub</a>
+      <a class="btn" href="https://github.com/cnab/CNAB-SDK/releases">Releases</a>
+    </div>
+    <div class="badges">
+      <span class="badge">v0.1.0</span>
+      <span class="badge">55 records</span>
+      <span class="badge">5 banks</span>
+      <span class="badge">336 tests</span>
+      <span class="badge">MIT</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<div class="note">
+  <strong>Pre-release — not on any package registry yet.</strong>
+  Nothing is published to npm, PyPI, Maven Central or NuGet. Releases are cut as
+  GitHub Releases with every build artifact attached, so you can install from a
+  downloaded tarball/wheel/jar today. Registry publishing is tracked in
+  <a href="https://github.com/cnab/CNAB-SDK/issues/14">issue #14</a>.
+  The API is <code>0.x</code> and may still change.
+</div>
+
+<h2>What it does</h2>
+
+<p>
+  CNAB is the fixed-width file format Brazilian banks use to exchange
+  <em>cobrança</em> instructions (remessa) and their results (retorno). Every
+  field is defined by an absolute position on a 240- or 400-character line, and
+  every bank varies the layout. Getting a position wrong doesn't throw — it
+  produces a plausible, wrong number.
+</p>
+
+<div class="grid">
+  <div class="card">
+    <h3>Parse</h3>
+    <p>Read a whole file, detect bank/layout/direction per line, and get typed field maps back.</p>
+  </div>
+  <div class="card">
+    <h3>Generate</h3>
+    <p>Build valid files with lote sequencing, record counters and trailer control fields computed for you.</p>
+  </div>
+  <div class="card">
+    <h3>Validate</h3>
+    <p>Line length, field shape and check digits — módulo 10/11, barcode, linha digitável.</p>
+  </div>
+  <div class="card">
+    <h3>Verify the spec</h3>
+    <p>The build rejects any record whose fields don't cover the line completely, with no gaps or overlaps.</p>
+  </div>
+</div>
+
+<h3>Strict by default</h3>
+<p>
+  <code>toLine</code> throws rather than silently reshaping a value. Writing a
+  17-digit amount into a 15-wide field used to keep the rightmost digits and
+  produce a different, entirely plausible amount that still validated. For a bank
+  file that is undetectable financial corruption, so it is now an error naming the
+  field, its positions and its width. The old behaviour is available explicitly
+  via <code>toLineWithOptions</code>.
+</p>
+
+<h2>Languages and versions</h2>
+
+<p>
+  One engine, authored once in TypeScript and projected by
+  <a href="https://github.com/aws/jsii">jsii</a>. The minimum is what the built
+  artifact declares; the CI column is what is actually exercised on every push.
+</p>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr>
+      <th>Language</th><th>Minimum</th><th>Package</th>
+      <th>CI runs</th><th class="num">Unit tests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Node.js / TypeScript</strong></td><td>18</td><td><code>@cnab/core</code>, <code>@cnab/spec</code>, <code>@cnab/cli</code></td><td>22</td><td class="num">215</td></tr>
+    <tr><td><strong>Python</strong></td><td>3.10</td><td><code>cnab-core</code> → <code>import cnab_core</code></td><td>3.11</td><td class="num">47</td></tr>
+    <tr><td><strong>Java</strong></td><td>8</td><td><code>org.cnab:cnab-core</code></td><td>17</td><td class="num">35</td></tr>
+    <tr><td><strong>.NET</strong></td><td>6.0</td><td><code>Cnab.Core</code></td><td>8.0</td><td class="num">39</td></tr>
+    <tr><td><strong>Go</strong></td><td colspan="4"><span class="no">not generated yet</span> — <a href="https://github.com/cnab/CNAB-SDK/issues/41">#41</a></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note">
+  <strong>The Python, Java and .NET bindings need Node.js at runtime.</strong>
+  This is how jsii works: the engine really is the TypeScript, and each binding
+  starts an embedded <code>node</code> process (override with <code>JSII_NODE</code>)
+  and talks to it. Node is a dependency of your <em>application</em>, not just of
+  your build. The jsii runtime asks for <strong>Node ≥ 20.16</strong>, so that is
+  the practical floor for non-Node consumers.
+</div>
+
+<h2>Coverage</h2>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr><th>Bank</th><th>Code</th><th>CNAB 240</th><th>CNAB 400</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Caixa Econômica Federal</td><td><code>104</code></td><td class="yes">✓ SIGCB</td><td class="yes">✓</td></tr>
+    <tr><td>Santander</td><td><code>033</code></td><td class="yes">✓</td><td class="no">—</td></tr>
+    <tr><td>Banco do Brasil</td><td><code>001</code></td><td class="yes">✓</td><td class="yes">✓</td></tr>
+    <tr><td>Itaú</td><td><code>341</code></td><td class="no">—</td><td class="yes">✓</td></tr>
+    <tr><td>Bradesco</td><td><code>237</code></td><td class="no">—</td><td class="yes">✓</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <strong>55 records</strong> (37 bank-specific + 18 generic FEBRABAN templates),
+  <strong>6 code tables</strong> and <strong>277 catalog fields</strong>. Every
+  shipped record has a golden-line test and round-trip property tests. More banks
+  are tracked in <a href="https://github.com/cnab/CNAB-SDK/issues/5">#5</a> — each
+  needs the bank's official manual, because guessing positions is how silent
+  corruption gets in.
+</p>
+
+<h2>Quick start</h2>
+
+<p>
+  Nothing is on a registry yet, so grab the artifacts from the
+  <a href="https://github.com/cnab/CNAB-SDK/releases">latest release</a>.
+</p>
+
+<h3>Node.js</h3>
+<pre><code>npm install ./cnab-core-0.1.0.tgz
+
+const { CnabSpec } = require('@cnab/core');
+
+const spec   = CnabSpec.bundled();
+const record = spec.getRecord('cnab240/104/sigcb/remessa/detalhe_segmento_p');
+
+let values = {};
+values = record.setDecimal(values, 'valor_titulo', '1500.00');
+values = record.setDateIso(values, 'vencimento', '2026-07-15');
+
+const line = record.toLine(values);          // 240 chars
+const back = record.parse(line);             // { valor_titulo: '150000', ... }
+</code></pre>
+
+<h3>Python</h3>
+<pre><code>pip install ./cnab_core-0.1.0-py3-none-any.whl
+
+import cnab_core as c
+
+spec   = c.CnabSpec.bundled()
+record = spec.get_record('cnab240/104/sigcb/remessa/detalhe_segmento_p')
+
+values = record.set_decimal({}, 'valor_titulo', '1500.00')
+line   = record.to_line(values)
+</code></pre>
+
+<h3>Java</h3>
+<pre><code>import org.cnab.core.*;
+
+CnabSpec spec  = CnabSpec.bundled();
+CnabRecord rec = spec.getRecord("cnab240/104/sigcb/remessa/detalhe_segmento_p");
+
+Map&lt;String, String&gt; values =
+    rec.setDecimal(new HashMap&lt;&gt;(), "valor_titulo", "1500.00");
+String line = rec.toLine(values);
+</code></pre>
+
+<h3>.NET</h3>
+<pre><code>using Cnab.Core;
+
+var spec   = CnabSpec.Bundled();
+var record = spec.GetRecord("cnab240/104/sigcb/remessa/detalhe_segmento_p");
+
+var values = record.SetDecimal(new Dictionary&lt;string, string&gt;(), "valor_titulo", "1500.00");
+var line   = record.ToLine(values);
+</code></pre>
+
+<div class="note">
+  <strong>The setters return a new map; they do not mutate.</strong>
+  <code>setDecimal</code> and <code>setDateIso</code> used to return <code>void</code>
+  and write in place — which works only in Node, because jsii marshals maps
+  <em>by value</em>. Always assign the result.
+</div>
+
+<h3>Command line</h3>
+<pre><code>cnab records    --bank 104
+cnab parse      --record cnab240/104/sigcb/header_arquivo &lt; line.txt
+cnab build      --record cnab240/104/sigcb/header_arquivo &lt; values.json
+cnab validate   --record cnab240/104/sigcb/header_arquivo &lt; line.txt
+cnab detect     &lt; remessa.rem       # identify bank / layout / direction
+cnab parse-file &lt; remessa.rem --pretty
+cnab tables                          # list code tables
+cnab code       &lt;tableKey&gt; &lt;code&gt;    # look up one code
+
+cnab boleto barcode --bank 104 --currency 9 --due 2026-07-15 \
+                    --amount 150000 --free 0000000000000000000000000
+cnab boleto parse   &lt;linhaDigitavel&gt;
+</code></pre>
+
+<p>
+  Files are read and written as <strong>Latin-1</strong> by default, because real
+  CNAB files are ISO-8859-1/Windows-1252 and one character must equal one byte or
+  every position after an accented name shifts. Use <code>--encoding utf8</code>,
+  <code>--crlf</code> and <code>--trailing-newline</code> to match a bank's exact
+  expectations.
+</p>
+
+<h2>How it is built</h2>
+
+<p>
+  The design decisions are written down as ADRs and are binding — the short
+  version:
+</p>
+
+<ul>
+  <li><strong>One engine, authored once.</strong> Every language is a jsii
+      projection of the same TypeScript, so behaviour cannot drift between them.</li>
+  <li><strong>A field catalog plus full standalone records.</strong> The catalog
+      holds semantics by canonical name and carries no positions; each record
+      lists its complete positioned field set with no inheritance. The compiler
+      then proves every line is fully covered, with no gaps or overlaps.</li>
+  <li><strong>Exact values at the boundary.</strong> Decimals and dates cross as
+      strings — <code>"1500.00"</code>, <code>"2026-07-15"</code> — never floats.</li>
+  <li><strong>Tested per language.</strong> Unit suites run against the generated
+      Python, Java and .NET artifacts, not just the TypeScript, because a
+      projection can break in ways the Node tests cannot see.</li>
+</ul>
+
+<p>
+  <a href="https://github.com/cnab/CNAB-SDK/tree/main/docs/adrs">Read the ADRs →</a>
+</p>
+
+<footer>
+  <p>
+    MIT licensed ·
+    <a href="https://github.com/cnab/CNAB-SDK">github.com/cnab/CNAB-SDK</a> ·
+    <a href="./api/">API reference</a> ·
+    <a href="https://github.com/cnab/CNAB-SDK/blob/main/CONTEXT.md">Domain glossary</a> ·
+    <a href="https://github.com/cnab/CNAB-SDK/issues/2">Roadmap</a>
+  </p>
+  <p>
+    This page and the API reference are generated from
+    <code>cnab/CNAB-SDK</code>; see
+    <a href="https://github.com/cnab/cnab.github.io">cnab/cnab.github.io</a>.
+  </p>
+</footer>
+
+</div>
+</body>
+</html>
