@@ -1,0 +1,2019 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CNAB SDK — API reference (.NET / C#)</title>
+<style>
+  :root{--bg:#fff;--fg:#1f2328;--muted:#59636e;--border:#d1d9e0;--accent:#0969da;--code:#f6f8fa}
+  @media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--border:#3d444d;--accent:#4493f8;--code:#151b23}}
+  :root[data-theme=dark]{--bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--border:#3d444d;--accent:#4493f8;--code:#151b23}
+  :root[data-theme=light]{--bg:#fff;--fg:#1f2328;--muted:#59636e;--border:#d1d9e0;--accent:#0969da;--code:#f6f8fa}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+       font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Noto Sans,Helvetica,Arial,sans-serif}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px 80px}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  code{background:var(--code);padding:.15em .4em;border-radius:6px;font-size:.875em}
+  pre{background:var(--code);border:1px solid var(--border);border-radius:8px;
+      padding:14px 16px;overflow-x:auto;font-size:.85rem}
+  pre code{background:none;padding:0}
+  h1,h2,h3,h4,h5{line-height:1.25}
+  h2{margin-top:2.5rem;padding-bottom:.3em;border-bottom:1px solid var(--border)}
+  table{border-collapse:collapse;width:100%;font-size:.92rem;display:block;overflow-x:auto}
+  th,td{text-align:left;padding:8px 12px;border:1px solid var(--border)}
+  th{background:var(--code)}
+  header{border-bottom:1px solid var(--border);background:var(--code)}
+  header .wrap{padding-top:28px;padding-bottom:20px}
+  .title{margin:0 0 .2em;font-size:1.6rem}
+  .sub{color:var(--muted);margin:0 0 1em;font-size:.95rem}
+  .langs{display:flex;flex-wrap:wrap;gap:8px}
+  .lang{display:inline-block;padding:6px 14px;border:1px solid var(--border);
+        border-radius:999px;font-size:.88rem;font-weight:600;background:var(--bg)}
+  .lang.current{background:var(--accent);border-color:var(--accent);color:#fff}
+  .note{border-left:4px solid var(--accent);background:var(--code);
+        padding:12px 16px;border-radius:0 8px 8px 0;margin:1.2em 0;font-size:.92rem}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1 class="title"><a href="../../">CNAB SDK</a> — API reference</h1>
+  <p class="sub">Generated from the jsii assembly for <code>@cnab/core@0.3.0</code>,
+     so every signature below is the one this language actually has.</p>
+  <div class="langs"><a class="lang" href="../typescript/">TypeScript / Node.js</a><a class="lang" href="../python/">Python</a><a class="lang" href="../java/">Java</a><span class="lang current">.NET / C#</span></div>
+</div></header>
+<div class="wrap">
+<div class="note">
+  The Python, Java and .NET bindings require <strong>Node.js at runtime</strong> —
+  jsii runs the engine in an embedded <code>node</code> process. See the
+  <a href="../../">support matrix</a>.
+</div>
+<h1>API Reference <a name="API Reference" id="api-reference"></a></h1>
+<h2>Structs <a name="Structs" id="Structs"></a></h2>
+<h3>BarcodeParams <a name="BarcodeParams" id="@cnab/core.BarcodeParams"></a></h3>
+<p>Parameters to compose a FEBRABAN cobrança barcode (44 digits).</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.BarcodeParams.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new BarcodeParams {
+    string AmountCents,
+    string BankCode,
+    string CurrencyCode,
+    string DueDateIso,
+    string FreeField
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.BarcodeParams.property.amountCents">AmountCents</a></code></td>
+<td><code>string</code></td>
+<td>Amount in cents, digits only, up to 10 digits (zero-padded to 10).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BarcodeParams.property.bankCode">BankCode</a></code></td>
+<td><code>string</code></td>
+<td>Bank code, exactly 3 digits (e.g. <code>104</code>, <code>341</code>).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BarcodeParams.property.currencyCode">CurrencyCode</a></code></td>
+<td><code>string</code></td>
+<td>Currency code, exactly 1 digit (<code>9</code> = Real).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BarcodeParams.property.dueDateIso">DueDateIso</a></code></td>
+<td><code>string</code></td>
+<td>Due date as ISO <code>YYYY-MM-DD</code>;</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BarcodeParams.property.freeField">FreeField</a></code></td>
+<td><code>string</code></td>
+<td>Bank-specific free field (campo livre), exactly 25 digits.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>AmountCents</code><sup>Required</sup> <a name="AmountCents" id="@cnab/core.BarcodeParams.property.amountCents"></a></h5>
+<pre><code class="language-csharp">public string AmountCents { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Amount in cents, digits only, up to 10 digits (zero-padded to 10).</p>
+<hr>
+<h5><code>BankCode</code><sup>Required</sup> <a name="BankCode" id="@cnab/core.BarcodeParams.property.bankCode"></a></h5>
+<pre><code class="language-csharp">public string BankCode { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Bank code, exactly 3 digits (e.g. <code>104</code>, <code>341</code>).</p>
+<hr>
+<h5><code>CurrencyCode</code><sup>Required</sup> <a name="CurrencyCode" id="@cnab/core.BarcodeParams.property.currencyCode"></a></h5>
+<pre><code class="language-csharp">public string CurrencyCode { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Currency code, exactly 1 digit (<code>9</code> = Real).</p>
+<hr>
+<h5><code>DueDateIso</code><sup>Required</sup> <a name="DueDateIso" id="@cnab/core.BarcodeParams.property.dueDateIso"></a></h5>
+<pre><code class="language-csharp">public string DueDateIso { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Due date as ISO <code>YYYY-MM-DD</code>;</p>
+<p>encoded as the 4-digit fator de vencimento.</p>
+<hr>
+<h5><code>FreeField</code><sup>Required</sup> <a name="FreeField" id="@cnab/core.BarcodeParams.property.freeField"></a></h5>
+<pre><code class="language-csharp">public string FreeField { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Bank-specific free field (campo livre), exactly 25 digits.</p>
+<hr>
+<h3>BrCodeFields <a name="BrCodeFields" id="@cnab/core.BrCodeFields"></a></h3>
+<p>Decoded result of {@link BrCode.decode}.</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.BrCodeFields.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new BrCodeFields {
+    string Amount,
+    string Crc,
+    bool CrcValid,
+    string Description,
+    string MerchantCity,
+    string MerchantName,
+    string PixKey,
+    string Txid
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.amount">Amount</a></code></td>
+<td><code>string</code></td>
+<td>Empty string when the payload carries no amount.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.crc">Crc</a></code></td>
+<td><code>string</code></td>
+<td>The 4 hex characters found in tag 63.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.crcValid">CrcValid</a></code></td>
+<td><code>bool</code></td>
+<td>Whether the payload&#39;s own CRC matches a recomputation.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.description">Description</a></code></td>
+<td><code>string</code></td>
+<td>Empty string when tag 26 carries no description.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.merchantCity">MerchantCity</a></code></td>
+<td><code>string</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.merchantName">MerchantName</a></code></td>
+<td><code>string</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.pixKey">PixKey</a></code></td>
+<td><code>string</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeFields.property.txid">Txid</a></code></td>
+<td><code>string</code></td>
+<td><em>No description.</em></td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Amount</code><sup>Required</sup> <a name="Amount" id="@cnab/core.BrCodeFields.property.amount"></a></h5>
+<pre><code class="language-csharp">public string Amount { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Empty string when the payload carries no amount.</p>
+<hr>
+<h5><code>Crc</code><sup>Required</sup> <a name="Crc" id="@cnab/core.BrCodeFields.property.crc"></a></h5>
+<pre><code class="language-csharp">public string Crc { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 4 hex characters found in tag 63.</p>
+<hr>
+<h5><code>CrcValid</code><sup>Required</sup> <a name="CrcValid" id="@cnab/core.BrCodeFields.property.crcValid"></a></h5>
+<pre><code class="language-csharp">public bool CrcValid { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> bool</li>
+</ul>
+<p>Whether the payload&#39;s own CRC matches a recomputation.</p>
+<hr>
+<h5><code>Description</code><sup>Required</sup> <a name="Description" id="@cnab/core.BrCodeFields.property.description"></a></h5>
+<pre><code class="language-csharp">public string Description { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Empty string when tag 26 carries no description.</p>
+<hr>
+<h5><code>MerchantCity</code><sup>Required</sup> <a name="MerchantCity" id="@cnab/core.BrCodeFields.property.merchantCity"></a></h5>
+<pre><code class="language-csharp">public string MerchantCity { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>MerchantName</code><sup>Required</sup> <a name="MerchantName" id="@cnab/core.BrCodeFields.property.merchantName"></a></h5>
+<pre><code class="language-csharp">public string MerchantName { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>PixKey</code><sup>Required</sup> <a name="PixKey" id="@cnab/core.BrCodeFields.property.pixKey"></a></h5>
+<pre><code class="language-csharp">public string PixKey { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>Txid</code><sup>Required</sup> <a name="Txid" id="@cnab/core.BrCodeFields.property.txid"></a></h5>
+<pre><code class="language-csharp">public string Txid { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h3>BrCodeParams <a name="BrCodeParams" id="@cnab/core.BrCodeParams"></a></h3>
+<p>Inputs for {@link BrCode.encode}.</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.BrCodeParams.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new BrCodeParams {
+    string MerchantCity,
+    string MerchantName,
+    string PixKey,
+    string Amount = null,
+    string Description = null,
+    bool SingleUse = null,
+    string Txid = null
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.merchantCity">MerchantCity</a></code></td>
+<td><code>string</code></td>
+<td>Beneficiary city.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.merchantName">MerchantName</a></code></td>
+<td><code>string</code></td>
+<td>Beneficiary name.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.pixKey">PixKey</a></code></td>
+<td><code>string</code></td>
+<td>PIX key: CPF/CNPJ, phone, e-mail, or a random (EVP) key.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.amount">Amount</a></code></td>
+<td><code>string</code></td>
+<td>Amount as a <strong>decimal string</strong> with at most two fraction digits (<code>&quot;10&quot;</code>, <code>&quot;10.5&quot;</code>, <code>&quot;1500.00&quot;</code>). Omit or pass <code>&quot;&quot;</code> to let the payer choose.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.description">Description</a></code></td>
+<td><code>string</code></td>
+<td>Optional free-text description carried inside tag 26.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.singleUse">SingleUse</a></code></td>
+<td><code>bool</code></td>
+<td><code>true</code> marks the code single-use (initiation method <code>12</code>).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCodeParams.property.txid">Txid</a></code></td>
+<td><code>string</code></td>
+<td>Transaction id.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>MerchantCity</code><sup>Required</sup> <a name="MerchantCity" id="@cnab/core.BrCodeParams.property.merchantCity"></a></h5>
+<pre><code class="language-csharp">public string MerchantCity { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Beneficiary city.</p>
+<p>Truncated to 15 characters after sanitising.</p>
+<hr>
+<h5><code>MerchantName</code><sup>Required</sup> <a name="MerchantName" id="@cnab/core.BrCodeParams.property.merchantName"></a></h5>
+<pre><code class="language-csharp">public string MerchantName { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Beneficiary name.</p>
+<p>Truncated to 25 characters after sanitising.</p>
+<hr>
+<h5><code>PixKey</code><sup>Required</sup> <a name="PixKey" id="@cnab/core.BrCodeParams.property.pixKey"></a></h5>
+<pre><code class="language-csharp">public string PixKey { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>PIX key: CPF/CNPJ, phone, e-mail, or a random (EVP) key.</p>
+<hr>
+<h5><code>Amount</code><sup>Optional</sup> <a name="Amount" id="@cnab/core.BrCodeParams.property.amount"></a></h5>
+<pre><code class="language-csharp">public string Amount { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Amount as a <strong>decimal string</strong> with at most two fraction digits (<code>&quot;10&quot;</code>, <code>&quot;10.5&quot;</code>, <code>&quot;1500.00&quot;</code>). Omit or pass <code>&quot;&quot;</code> to let the payer choose.</p>
+<hr>
+<h5><code>Description</code><sup>Optional</sup> <a name="Description" id="@cnab/core.BrCodeParams.property.description"></a></h5>
+<pre><code class="language-csharp">public string Description { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Optional free-text description carried inside tag 26.</p>
+<hr>
+<h5><code>SingleUse</code><sup>Optional</sup> <a name="SingleUse" id="@cnab/core.BrCodeParams.property.singleUse"></a></h5>
+<pre><code class="language-csharp">public bool SingleUse { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> bool</li>
+</ul>
+<p><code>true</code> marks the code single-use (initiation method <code>12</code>).</p>
+<p>Reusable codes
+omit the tag entirely, which is what the BACEN static examples do.</p>
+<hr>
+<h5><code>Txid</code><sup>Optional</sup> <a name="Txid" id="@cnab/core.BrCodeParams.property.txid"></a></h5>
+<pre><code class="language-csharp">public string Txid { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Transaction id.</p>
+<p>Defaults to <code>&quot;***&quot;</code>, which means &quot;not specified&quot;.
+Alphanumeric, at most 25 characters.</p>
+<hr>
+<h3>DetectedScope <a name="DetectedScope" id="@cnab/core.DetectedScope"></a></h3>
+<p>The scope of a CNAB file inferred from its content (see <code>CnabFile.detectScope</code>).</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.DetectedScope.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new DetectedScope {
+    string Bank,
+    string Direction,
+    string Layout,
+    string Variant
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.DetectedScope.property.bank">Bank</a></code></td>
+<td><code>string</code></td>
+<td>Detected bank code, e.g. <code>104</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.DetectedScope.property.direction">Direction</a></code></td>
+<td><code>string</code></td>
+<td>Detected direction, <code>remessa</code> or <code>retorno</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.DetectedScope.property.layout">Layout</a></code></td>
+<td><code>string</code></td>
+<td>Detected layout family, <code>cnab240</code> or <code>cnab400</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.DetectedScope.property.variant">Variant</a></code></td>
+<td><code>string</code></td>
+<td>Detected variant, e.g. <code>sigcb</code> (empty when the bank has none).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Bank</code><sup>Required</sup> <a name="Bank" id="@cnab/core.DetectedScope.property.bank"></a></h5>
+<pre><code class="language-csharp">public string Bank { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Detected bank code, e.g. <code>104</code>.</p>
+<hr>
+<h5><code>Direction</code><sup>Required</sup> <a name="Direction" id="@cnab/core.DetectedScope.property.direction"></a></h5>
+<pre><code class="language-csharp">public string Direction { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Detected direction, <code>remessa</code> or <code>retorno</code>.</p>
+<hr>
+<h5><code>Layout</code><sup>Required</sup> <a name="Layout" id="@cnab/core.DetectedScope.property.layout"></a></h5>
+<pre><code class="language-csharp">public string Layout { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Detected layout family, <code>cnab240</code> or <code>cnab400</code>.</p>
+<hr>
+<h5><code>Variant</code><sup>Required</sup> <a name="Variant" id="@cnab/core.DetectedScope.property.variant"></a></h5>
+<pre><code class="language-csharp">public string Variant { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Detected variant, e.g. <code>sigcb</code> (empty when the bank has none).</p>
+<hr>
+<h3>FieldSpec <a name="FieldSpec" id="@cnab/core.FieldSpec"></a></h3>
+<p>Specification of a single positioned field within a record.</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.FieldSpec.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new FieldSpec {
+    string DateFormat,
+    double Decimals,
+    string DefaultValue,
+    string Description,
+    double End,
+    FieldType FieldType,
+    string Name,
+    double Start
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.dateFormat">DateFormat</a></code></td>
+<td><code>string</code></td>
+<td>Language-neutral date format token (empty when not a date field).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.decimals">Decimals</a></code></td>
+<td><code>double</code></td>
+<td>Number of implied decimal places (0 when not a decimal field).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.defaultValue">DefaultValue</a></code></td>
+<td><code>string</code></td>
+<td>Default value applied by <code>build</code> when no value is supplied.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.description">Description</a></code></td>
+<td><code>string</code></td>
+<td>Short human description.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.end">End</a></code></td>
+<td><code>double</code></td>
+<td>1-based end position, inclusive.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.fieldType">FieldType</a></code></td>
+<td><code><a href="#@cnab/core.FieldType">FieldType</a></code></td>
+<td>Field type / padding behaviour.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.name">Name</a></code></td>
+<td><code>string</code></td>
+<td>Canonical field name (the key used by <code>parse</code>/<code>build</code>).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldSpec.property.start">Start</a></code></td>
+<td><code>double</code></td>
+<td>1-based start position, inclusive.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>DateFormat</code><sup>Required</sup> <a name="DateFormat" id="@cnab/core.FieldSpec.property.dateFormat"></a></h5>
+<pre><code class="language-csharp">public string DateFormat { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Language-neutral date format token (empty when not a date field).</p>
+<hr>
+<h5><code>Decimals</code><sup>Required</sup> <a name="Decimals" id="@cnab/core.FieldSpec.property.decimals"></a></h5>
+<pre><code class="language-csharp">public double Decimals { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> double</li>
+</ul>
+<p>Number of implied decimal places (0 when not a decimal field).</p>
+<hr>
+<h5><code>DefaultValue</code><sup>Required</sup> <a name="DefaultValue" id="@cnab/core.FieldSpec.property.defaultValue"></a></h5>
+<pre><code class="language-csharp">public string DefaultValue { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Default value applied by <code>build</code> when no value is supplied.</p>
+<hr>
+<h5><code>Description</code><sup>Required</sup> <a name="Description" id="@cnab/core.FieldSpec.property.description"></a></h5>
+<pre><code class="language-csharp">public string Description { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Short human description.</p>
+<hr>
+<h5><code>End</code><sup>Required</sup> <a name="End" id="@cnab/core.FieldSpec.property.end"></a></h5>
+<pre><code class="language-csharp">public double End { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> double</li>
+</ul>
+<p>1-based end position, inclusive.</p>
+<hr>
+<h5><code>FieldType</code><sup>Required</sup> <a name="FieldType" id="@cnab/core.FieldSpec.property.fieldType"></a></h5>
+<pre><code class="language-csharp">public FieldType FieldType { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> <a href="#@cnab/core.FieldType">FieldType</a></li>
+</ul>
+<p>Field type / padding behaviour.</p>
+<hr>
+<h5><code>Name</code><sup>Required</sup> <a name="Name" id="@cnab/core.FieldSpec.property.name"></a></h5>
+<pre><code class="language-csharp">public string Name { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Canonical field name (the key used by <code>parse</code>/<code>build</code>).</p>
+<hr>
+<h5><code>Start</code><sup>Required</sup> <a name="Start" id="@cnab/core.FieldSpec.property.start"></a></h5>
+<pre><code class="language-csharp">public double Start { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> double</li>
+</ul>
+<p>1-based start position, inclusive.</p>
+<hr>
+<h3>LineOptions <a name="LineOptions" id="@cnab/core.LineOptions"></a></h3>
+<p>Opt-out knobs for the <strong>lenient</strong> line-building behaviour of <code>CnabRecord.toLineWithOptions</code>.</p>
+<p><code>toLine</code> is strict: a value that does not fit its field, or that is not a
+digit string on a numeric field, raises an error instead of being silently
+rewritten. Both flags below restore the legacy lenient behaviour, which
+<strong>silently changes the data written to the file</strong> — for a bank file that is
+financial corruption that <code>validate</code> cannot detect afterwards. Only set them
+when you knowingly accept that.</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.LineOptions.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new LineOptions {
+    bool StripNonDigits,
+    bool TruncateOversized
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.LineOptions.property.stripNonDigits">StripNonDigits</a></code></td>
+<td><code>bool</code></td>
+<td>When true, every non-digit character is deleted from values written to numeric fields instead of raising (so <code>&quot;1500.00&quot;</code> becomes <code>&quot;150000&quot;</code> and <code>&quot;-10&quot;</code> becomes <code>&quot;10&quot;</code>). Prefer <code>setDecimal</code> for decimal input.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.LineOptions.property.truncateOversized">TruncateOversized</a></code></td>
+<td><code>bool</code></td>
+<td>When true, a value longer than its field is cut to size instead of raising: alphanumeric fields keep the <strong>leftmost</strong> characters, numeric fields keep the <strong>rightmost</strong> digits (so <code>123456</code> in a 4-wide field becomes <code>3456</code>).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>StripNonDigits</code><sup>Required</sup> <a name="StripNonDigits" id="@cnab/core.LineOptions.property.stripNonDigits"></a></h5>
+<pre><code class="language-csharp">public bool StripNonDigits { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> bool</li>
+</ul>
+<p>When true, every non-digit character is deleted from values written to numeric fields instead of raising (so <code>&quot;1500.00&quot;</code> becomes <code>&quot;150000&quot;</code> and <code>&quot;-10&quot;</code> becomes <code>&quot;10&quot;</code>). Prefer <code>setDecimal</code> for decimal input.</p>
+<hr>
+<h5><code>TruncateOversized</code><sup>Required</sup> <a name="TruncateOversized" id="@cnab/core.LineOptions.property.truncateOversized"></a></h5>
+<pre><code class="language-csharp">public bool TruncateOversized { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> bool</li>
+</ul>
+<p>When true, a value longer than its field is cut to size instead of raising: alphanumeric fields keep the <strong>leftmost</strong> characters, numeric fields keep the <strong>rightmost</strong> digits (so <code>123456</code> in a 4-wide field becomes <code>3456</code>).</p>
+<hr>
+<h3>ParsedLine <a name="ParsedLine" id="@cnab/core.ParsedLine"></a></h3>
+<p>One parsed line of a whole CNAB file.</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.ParsedLine.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new ParsedLine {
+    System.Collections.Generic.IDictionary&lt;string, string&gt; Fields,
+    string RecordKey,
+    string Segment,
+    string Tipo
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.ParsedLine.property.fields">Fields</a></code></td>
+<td><code>System.Collections.Generic.IDictionary<string, string></code></td>
+<td>Parsed field values (empty when the line could not be classified).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.ParsedLine.property.recordKey">RecordKey</a></code></td>
+<td><code>string</code></td>
+<td>Detected record key (empty when the line could not be classified).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.ParsedLine.property.segment">Segment</a></code></td>
+<td><code>string</code></td>
+<td>The segment code for CNAB240 detail lines (empty otherwise).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.ParsedLine.property.tipo">Tipo</a></code></td>
+<td><code>string</code></td>
+<td>The record-type discriminator value (CNAB240 pos 8 / CNAB400 pos 1).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Fields</code><sup>Required</sup> <a name="Fields" id="@cnab/core.ParsedLine.property.fields"></a></h5>
+<pre><code class="language-csharp">public System.Collections.Generic.IDictionary&lt;string, string&gt; Fields { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<p>Parsed field values (empty when the line could not be classified).</p>
+<hr>
+<h5><code>RecordKey</code><sup>Required</sup> <a name="RecordKey" id="@cnab/core.ParsedLine.property.recordKey"></a></h5>
+<pre><code class="language-csharp">public string RecordKey { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Detected record key (empty when the line could not be classified).</p>
+<hr>
+<h5><code>Segment</code><sup>Required</sup> <a name="Segment" id="@cnab/core.ParsedLine.property.segment"></a></h5>
+<pre><code class="language-csharp">public string Segment { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The segment code for CNAB240 detail lines (empty otherwise).</p>
+<hr>
+<h5><code>Tipo</code><sup>Required</sup> <a name="Tipo" id="@cnab/core.ParsedLine.property.tipo"></a></h5>
+<pre><code class="language-csharp">public string Tipo { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The record-type discriminator value (CNAB240 pos 8 / CNAB400 pos 1).</p>
+<hr>
+<h3>RecordSpec <a name="RecordSpec" id="@cnab/core.RecordSpec"></a></h3>
+<p>Specification of a whole record (one full 240/400 line).</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.RecordSpec.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new RecordSpec {
+    string Bank,
+    string Direction,
+    FieldSpec[] Fields,
+    string Layout,
+    double LineLength,
+    string Record,
+    string Variant
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.bank">Bank</a></code></td>
+<td><code>string</code></td>
+<td>Bank code, e.g. <code>104</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.direction">Direction</a></code></td>
+<td><code>string</code></td>
+<td>Optional direction, e.g. <code>remessa</code>/<code>retorno</code> (empty when none).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.fields">Fields</a></code></td>
+<td><code><a href="#@cnab/core.FieldSpec">FieldSpec</a>[]</code></td>
+<td>All fields, ordered by position.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.layout">Layout</a></code></td>
+<td><code>string</code></td>
+<td>Layout family, e.g. <code>cnab240</code> or <code>cnab400</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.lineLength">LineLength</a></code></td>
+<td><code>double</code></td>
+<td>Total line length (240 or 400).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.record">Record</a></code></td>
+<td><code>string</code></td>
+<td>Record name, e.g. <code>header_arquivo</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.RecordSpec.property.variant">Variant</a></code></td>
+<td><code>string</code></td>
+<td>Optional variant, e.g. <code>sigcb</code> (empty when none).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Bank</code><sup>Required</sup> <a name="Bank" id="@cnab/core.RecordSpec.property.bank"></a></h5>
+<pre><code class="language-csharp">public string Bank { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Bank code, e.g. <code>104</code>.</p>
+<hr>
+<h5><code>Direction</code><sup>Required</sup> <a name="Direction" id="@cnab/core.RecordSpec.property.direction"></a></h5>
+<pre><code class="language-csharp">public string Direction { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Optional direction, e.g. <code>remessa</code>/<code>retorno</code> (empty when none).</p>
+<hr>
+<h5><code>Fields</code><sup>Required</sup> <a name="Fields" id="@cnab/core.RecordSpec.property.fields"></a></h5>
+<pre><code class="language-csharp">public FieldSpec[] Fields { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> <a href="#@cnab/core.FieldSpec">FieldSpec</a>[]</li>
+</ul>
+<p>All fields, ordered by position.</p>
+<hr>
+<h5><code>Layout</code><sup>Required</sup> <a name="Layout" id="@cnab/core.RecordSpec.property.layout"></a></h5>
+<pre><code class="language-csharp">public string Layout { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Layout family, e.g. <code>cnab240</code> or <code>cnab400</code>.</p>
+<hr>
+<h5><code>LineLength</code><sup>Required</sup> <a name="LineLength" id="@cnab/core.RecordSpec.property.lineLength"></a></h5>
+<pre><code class="language-csharp">public double LineLength { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> double</li>
+</ul>
+<p>Total line length (240 or 400).</p>
+<hr>
+<h5><code>Record</code><sup>Required</sup> <a name="Record" id="@cnab/core.RecordSpec.property.record"></a></h5>
+<pre><code class="language-csharp">public string Record { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Record name, e.g. <code>header_arquivo</code>.</p>
+<hr>
+<h5><code>Variant</code><sup>Required</sup> <a name="Variant" id="@cnab/core.RecordSpec.property.variant"></a></h5>
+<pre><code class="language-csharp">public string Variant { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>Optional variant, e.g. <code>sigcb</code> (empty when none).</p>
+<hr>
+<h3>ValidationResult <a name="ValidationResult" id="@cnab/core.ValidationResult"></a></h3>
+<p>Outcome of validating a line against a record spec.</p>
+<h4>Initializer <a name="Initializer" id="@cnab/core.ValidationResult.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new ValidationResult {
+    string[] Errors,
+    bool Valid
+};
+</code></pre>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.ValidationResult.property.errors">Errors</a></code></td>
+<td><code>string[]</code></td>
+<td>Human-readable problems (empty when valid).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.ValidationResult.property.valid">Valid</a></code></td>
+<td><code>bool</code></td>
+<td>True when no problems were found.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Errors</code><sup>Required</sup> <a name="Errors" id="@cnab/core.ValidationResult.property.errors"></a></h5>
+<pre><code class="language-csharp">public string[] Errors { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<p>Human-readable problems (empty when valid).</p>
+<hr>
+<h5><code>Valid</code><sup>Required</sup> <a name="Valid" id="@cnab/core.ValidationResult.property.valid"></a></h5>
+<pre><code class="language-csharp">public bool Valid { get; set; }
+</code></pre>
+<ul>
+<li><em>Type:</em> bool</li>
+</ul>
+<p>True when no problems were found.</p>
+<hr>
+<h2>Classes <a name="Classes" id="Classes"></a></h2>
+<h3>Boleto <a name="Boleto" id="@cnab/core.Boleto"></a></h3>
+<p>FEBRABAN cobrança barcode (44 digits) and linha digitável (47 digits) helpers.</p>
+<p>Barcode layout (1-based positions):</p>
+<ul>
+<li>1-3: bank code</li>
+<li>4: currency code (<code>9</code>)</li>
+<li>5: general check digit (DAC, <code>Modulo.mod11Boleto</code> over the other 43)</li>
+<li>6-9: fator de vencimento (due-date factor)</li>
+<li>10-19: amount in cents, zero-padded to 10</li>
+<li>20-44: campo livre (25 bank-specific digits)</li>
+</ul>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.Boleto.barcode">Barcode</a></code></td>
+<td>Compose the 44-digit FEBRABAN cobrança barcode.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Boleto.barcodeCheckDigit">BarcodeCheckDigit</a></code></td>
+<td>Compute the expected general check digit of a 44-digit barcode from its other 43 digits (positions 1-4 and 6-44).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Boleto.fatorVencimento">FatorVencimento</a></code></td>
+<td>Compute the 4-digit <em>fator de vencimento</em> for a due date.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Boleto.isValidBarcode">IsValidBarcode</a></code></td>
+<td>Whether a string is a well-formed 44-digit cobrança barcode with a correct general check digit.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Boleto.linhaDigitavel">LinhaDigitavel</a></code></td>
+<td>Derive the 47-digit linha digitável from a valid 44-digit barcode, returned as plain digits (no dots/spaces).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Boleto.linhaDigitavelFormatted">LinhaDigitavelFormatted</a></code></td>
+<td>The linha digitável formatted for humans with the standard mask <code>#####.##### #####.###### #####.###### # ##############</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Boleto.parseLinhaDigitavel">ParseLinhaDigitavel</a></code></td>
+<td>Parse a linha digitável (47 digits, optionally with dots and spaces) back into the 44-digit barcode.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Barcode</code> <a name="Barcode" id="@cnab/core.Boleto.barcode"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.Barcode(BarcodeParams Options);
+</code></pre>
+<p>Compose the 44-digit FEBRABAN cobrança barcode.</p>
+<p>The general check digit (position 5) is computed with
+<code>Modulo.mod11Boleto</code> over the other 43 digits.</p>
+<h6><code>Options</code><sup>Required</sup> <a name="Options" id="@cnab/core.Boleto.barcode.parameter.options"></a></h6>
+<ul>
+<li><em>Type:</em> <a href="#@cnab/core.BarcodeParams">BarcodeParams</a></li>
+</ul>
+<p>bank, currency, due date, amount and campo livre.</p>
+<hr>
+<h5><code>BarcodeCheckDigit</code> <a name="BarcodeCheckDigit" id="@cnab/core.Boleto.barcodeCheckDigit"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.BarcodeCheckDigit(string Barcode);
+</code></pre>
+<p>Compute the expected general check digit of a 44-digit barcode from its other 43 digits (positions 1-4 and 6-44).</p>
+<p>Does not require the stored
+DV (position 5) to be correct.</p>
+<h6><code>Barcode</code><sup>Required</sup> <a name="Barcode" id="@cnab/core.Boleto.barcodeCheckDigit.parameter.barcode"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>the 44-digit barcode.</p>
+<hr>
+<h5><code>FatorVencimento</code> <a name="FatorVencimento" id="@cnab/core.Boleto.fatorVencimento"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.FatorVencimento(string DateIso);
+</code></pre>
+<p>Compute the 4-digit <em>fator de vencimento</em> for a due date.</p>
+<p>The factor counts days since the FEBRABAN base date 1997-10-07
+(1997-10-08 → <code>0001</code>). After the counter reached 9999 on 2025-02-21,
+FEBRABAN restarted it at 1000 on 2025-02-22; factors keep cycling in
+the 1000-9999 window: <code>factor &gt; 9999 → ((factor - 1000) % 9000) + 1000</code>.</p>
+<p>All arithmetic is done in UTC to avoid timezone off-by-one errors.</p>
+<h6><code>DateIso</code><sup>Required</sup> <a name="DateIso" id="@cnab/core.Boleto.fatorVencimento.parameter.dateIso"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>due date as ISO <code>YYYY-MM-DD</code>.</p>
+<hr>
+<h5><code>IsValidBarcode</code> <a name="IsValidBarcode" id="@cnab/core.Boleto.isValidBarcode"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.IsValidBarcode(string Barcode);
+</code></pre>
+<p>Whether a string is a well-formed 44-digit cobrança barcode with a correct general check digit.</p>
+<h6><code>Barcode</code><sup>Required</sup> <a name="Barcode" id="@cnab/core.Boleto.isValidBarcode.parameter.barcode"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>LinhaDigitavel</code> <a name="LinhaDigitavel" id="@cnab/core.Boleto.linhaDigitavel"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.LinhaDigitavel(string Barcode);
+</code></pre>
+<p>Derive the 47-digit linha digitável from a valid 44-digit barcode, returned as plain digits (no dots/spaces).</p>
+<p>Field layout (barcode positions are 1-based):</p>
+<ul>
+<li>field 1 (10 digits): barcode 1-4 + 20-24 + módulo-10 DV</li>
+<li>field 2 (11 digits): barcode 25-34 + módulo-10 DV</li>
+<li>field 3 (11 digits): barcode 35-44 + módulo-10 DV</li>
+<li>field 4 (1 digit): the barcode general DV (position 5)</li>
+<li>field 5 (14 digits): barcode 6-19 (fator de vencimento + amount)</li>
+</ul>
+<h6><code>Barcode</code><sup>Required</sup> <a name="Barcode" id="@cnab/core.Boleto.linhaDigitavel.parameter.barcode"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>the 44-digit barcode.</p>
+<hr>
+<h5><code>LinhaDigitavelFormatted</code> <a name="LinhaDigitavelFormatted" id="@cnab/core.Boleto.linhaDigitavelFormatted"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.LinhaDigitavelFormatted(string Barcode);
+</code></pre>
+<p>The linha digitável formatted for humans with the standard mask <code>#####.##### #####.###### #####.###### # ##############</code>.</p>
+<h6><code>Barcode</code><sup>Required</sup> <a name="Barcode" id="@cnab/core.Boleto.linhaDigitavelFormatted.parameter.barcode"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>the 44-digit barcode.</p>
+<hr>
+<h5><code>ParseLinhaDigitavel</code> <a name="ParseLinhaDigitavel" id="@cnab/core.Boleto.parseLinhaDigitavel"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Boleto.ParseLinhaDigitavel(string Linha);
+</code></pre>
+<p>Parse a linha digitável (47 digits, optionally with dots and spaces) back into the 44-digit barcode.</p>
+<p>Validates the three módulo-10 field DVs and the reconstructed barcode&#39;s
+general módulo-11 DV; throws with a clear message on any mismatch.</p>
+<h6><code>Linha</code><sup>Required</sup> <a name="Linha" id="@cnab/core.Boleto.parseLinhaDigitavel.parameter.linha"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>the linha digitável, plain or formatted.</p>
+<hr>
+<h3>BrCode <a name="BrCode" id="@cnab/core.BrCode"></a></h3>
+<p>Build, parse and verify the PIX BR Code payload.</p>
+<pre><code class="language-csharp">// Example automatically generated from non-compiling source. May contain errors.
+var payload = BrCode.Encode(new Struct {
+    PixKey = &quot;fulano@example.com&quot;,
+    MerchantName = &quot;FULANO DE TAL&quot;,
+    MerchantCity = &quot;BRASILIA&quot;,
+    Amount = &quot;10.00&quot;
+});
+BrCode.IsValid(payload); // true
+BrCode.Decode(payload).PixKey;
+</code></pre>
+<h4>Initializers <a name="Initializers" id="@cnab/core.BrCode.Initializer"></a></h4>
+<pre><code class="language-csharp">using Cnab.Core;
+
+new BrCode();
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+</table>
+<hr>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.BrCode.crc16">Crc16</a></code></td>
+<td>CRC-16/CCITT-FALSE: polynomial <code>0x1021</code>, initial value <code>0xFFFF</code>, no input or output reflection, no final XOR. Returned as four uppercase hex characters, zero-padded.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCode.decode">Decode</a></code></td>
+<td>Decode a BR Code payload into its fields, reporting CRC validity.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCode.encode">Encode</a></code></td>
+<td>Build a BR Code payload, CRC included.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.BrCode.isValid">IsValid</a></code></td>
+<td><code>true</code> when the payload&#39;s trailing CRC matches a recomputation over everything before it.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Crc16</code> <a name="Crc16" id="@cnab/core.BrCode.crc16"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+BrCode.Crc16(string Payload);
+</code></pre>
+<p>CRC-16/CCITT-FALSE: polynomial <code>0x1021</code>, initial value <code>0xFFFF</code>, no input or output reflection, no final XOR. Returned as four uppercase hex characters, zero-padded.</p>
+<p>Canonical check: <code>crc16(&quot;123456789&quot;) === &quot;29B1&quot;</code>.</p>
+<h6><code>Payload</code><sup>Required</sup> <a name="Payload" id="@cnab/core.BrCode.crc16.parameter.payload"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>Decode</code> <a name="Decode" id="@cnab/core.BrCode.decode"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+BrCode.Decode(string Payload);
+</code></pre>
+<p>Decode a BR Code payload into its fields, reporting CRC validity.</p>
+<h6><code>Payload</code><sup>Required</sup> <a name="Payload" id="@cnab/core.BrCode.decode.parameter.payload"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>Encode</code> <a name="Encode" id="@cnab/core.BrCode.encode"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+BrCode.Encode(BrCodeParams Options);
+</code></pre>
+<p>Build a BR Code payload, CRC included.</p>
+<h6><code>Options</code><sup>Required</sup> <a name="Options" id="@cnab/core.BrCode.encode.parameter.options"></a></h6>
+<ul>
+<li><em>Type:</em> <a href="#@cnab/core.BrCodeParams">BrCodeParams</a></li>
+</ul>
+<hr>
+<h5><code>IsValid</code> <a name="IsValid" id="@cnab/core.BrCode.isValid"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+BrCode.IsValid(string Payload);
+</code></pre>
+<p><code>true</code> when the payload&#39;s trailing CRC matches a recomputation over everything before it.</p>
+<p>Returns <code>false</code> rather than throwing for anything
+that is not a well-formed payload — callers use this as a predicate.</p>
+<h6><code>Payload</code><sup>Required</sup> <a name="Payload" id="@cnab/core.BrCode.isValid.parameter.payload"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h3>CnabFile <a name="CnabFile" id="@cnab/core.CnabFile"></a></h3>
+<p>Parses a whole CNAB file (many lines of mixed record types) by detecting each line&#39;s record type from its discriminator positions and dispatching to the matching record spec.</p>
+<p>Scope it to one bank/variant/direction with <code>forBank</code>.</p>
+<h4>Methods <a name="Methods" id="Methods"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabFile.parse">Parse</a></code></td>
+<td>Parse a whole file&#39;s content into one <code>ParsedLine</code> per non-empty line.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Parse</code> <a name="Parse" id="@cnab/core.CnabFile.parse"></a></h5>
+<pre><code class="language-csharp">private ParsedLine[] Parse(string Content)
+</code></pre>
+<p>Parse a whole file&#39;s content into one <code>ParsedLine</code> per non-empty line.</p>
+<p>A leading UTF-8 BOM (U+FEFF) is ignored, and both LF and CRLF line endings
+are accepted.</p>
+<h6><code>Content</code><sup>Required</sup> <a name="Content" id="@cnab/core.CnabFile.parse.parameter.content"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabFile.detect">Detect</a></code></td>
+<td>Convenience: detect the file&#39;s scope with <code>detectScope</code> and return a <code>CnabFile</code> parser scoped to it.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFile.detectScope">DetectScope</a></code></td>
+<td>Infer a file&#39;s scope (layout / bank / variant / direction) from its first line (the header_arquivo):.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFile.forBank">ForBank</a></code></td>
+<td>Build a file parser scoped to the records of one bank (and optional variant / direction).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFile.forBankBundled">ForBankBundled</a></code></td>
+<td>Same as <code>forBank</code>, but against the spec bundled with this package — the common path, and the only one available to consumers who have no <code>spec.json</code> file (i.e. everyone outside Node).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Detect</code> <a name="Detect" id="@cnab/core.CnabFile.detect"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabFile.Detect(string SpecJson, string Content);
+</code></pre>
+<p>Convenience: detect the file&#39;s scope with <code>detectScope</code> and return a <code>CnabFile</code> parser scoped to it.</p>
+<p>Throws the same errors as <code>detectScope</code>
+when the content cannot be identified.</p>
+<h6><code>SpecJson</code><sup>Required</sup> <a name="SpecJson" id="@cnab/core.CnabFile.detect.parameter.specJson"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Content</code><sup>Required</sup> <a name="Content" id="@cnab/core.CnabFile.detect.parameter.content"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>DetectScope</code> <a name="DetectScope" id="@cnab/core.CnabFile.detectScope"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabFile.DetectScope(string SpecJson, string Content);
+</code></pre>
+<p>Infer a file&#39;s scope (layout / bank / variant / direction) from its first line (the header_arquivo):.</p>
+<ul>
+<li><strong>layout</strong> from the line length: 240 -&gt; <code>cnab240</code>, 400 -&gt; <code>cnab400</code>;</li>
+<li><strong>bank</strong> from <code>codigo_banco</code>: positions 1-3 (CNAB240) or 77-79 (CNAB400);</li>
+<li><strong>direction</strong> from the CNAB240 header position 143 (<code>1</code> remessa /
+<code>2</code> retorno), or for CNAB400 from header position 2 (<code>1</code> remessa /
+<code>2</code> retorno) corroborated by the <code>REMESSA</code>/<code>RETORNO</code> literal at 3-9;</li>
+<li><strong>variant</strong> by trying every candidate variant of the detected bank and
+keeping the one whose records classify the most lines of the file.</li>
+</ul>
+<p>Throws an <code>Error</code> with a descriptive message when the content cannot be
+detected: empty input, a first line that is not 240/400 characters long, a
+position 1-3 / 77-79 value that is not a three-digit bank code, an
+unrecognizable direction indicator, or a bank with no matching records in
+the spec.</p>
+<p>A leading UTF-8 BOM (U+FEFF) is ignored, and both LF and CRLF line endings
+are accepted.</p>
+<h6><code>SpecJson</code><sup>Required</sup> <a name="SpecJson" id="@cnab/core.CnabFile.detectScope.parameter.specJson"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Content</code><sup>Required</sup> <a name="Content" id="@cnab/core.CnabFile.detectScope.parameter.content"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>ForBank</code> <a name="ForBank" id="@cnab/core.CnabFile.forBank"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabFile.ForBank(string SpecJson, string Layout, string Bank, string Variant, string Direction);
+</code></pre>
+<p>Build a file parser scoped to the records of one bank (and optional variant / direction).</p>
+<p><code>variant</code> and <code>direction</code> may be empty strings.</p>
+<h6><code>SpecJson</code><sup>Required</sup> <a name="SpecJson" id="@cnab/core.CnabFile.forBank.parameter.specJson"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Layout</code><sup>Required</sup> <a name="Layout" id="@cnab/core.CnabFile.forBank.parameter.layout"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Bank</code><sup>Required</sup> <a name="Bank" id="@cnab/core.CnabFile.forBank.parameter.bank"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Variant</code><sup>Required</sup> <a name="Variant" id="@cnab/core.CnabFile.forBank.parameter.variant"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Direction</code><sup>Required</sup> <a name="Direction" id="@cnab/core.CnabFile.forBank.parameter.direction"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>ForBankBundled</code> <a name="ForBankBundled" id="@cnab/core.CnabFile.forBankBundled"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabFile.ForBankBundled(string Layout, string Bank, string Variant, string Direction);
+</code></pre>
+<p>Same as <code>forBank</code>, but against the spec bundled with this package — the common path, and the only one available to consumers who have no <code>spec.json</code> file (i.e. everyone outside Node).</p>
+<p>jsii forbids method overloads, so this is a distinct name rather than an
+optional first parameter.</p>
+<h6><code>Layout</code><sup>Required</sup> <a name="Layout" id="@cnab/core.CnabFile.forBankBundled.parameter.layout"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Bank</code><sup>Required</sup> <a name="Bank" id="@cnab/core.CnabFile.forBankBundled.parameter.bank"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Variant</code><sup>Required</sup> <a name="Variant" id="@cnab/core.CnabFile.forBankBundled.parameter.variant"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Direction</code><sup>Required</sup> <a name="Direction" id="@cnab/core.CnabFile.forBankBundled.parameter.direction"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h3>CnabFileBuilder <a name="CnabFileBuilder" id="@cnab/core.CnabFileBuilder"></a></h3>
+<p>Builds a whole CNAB file (header + lotes/details + trailer), auto-computing the layout&#39;s control fields.</p>
+<p>Terminal method is <code>toFileContent</code> (<code>build</code> is
+a prohibited member name in jsii).</p>
+<p>CNAB240 usage: <code>setHeader</code>, then one or more <code>startLote</code> / <code>addDetail</code>* /
+<code>endLote</code> cycles, then <code>toFileContent</code>.
+CNAB400 usage: <code>setHeader</code>, <code>addDetail</code>*, <code>toFileContent</code> (no lotes).</p>
+<p>Every line is emitted through the <strong>strict</strong> <code>CnabRecord.toLine</code>: a value
+that does not fit its field, or a non-digit value on a numeric field, aborts
+<code>toFileContent</code> with an error naming the field instead of being silently
+truncated or stripped. There is deliberately no lenient mode here — a whole
+generated bank file must never contain quietly altered amounts. Callers that
+need the legacy behaviour must build those lines themselves with
+<code>CnabRecord.toLineWithOptions</code>.</p>
+<h4>Methods <a name="Methods" id="Methods"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.addDetail">AddDetail</a></code></td>
+<td>Append a detail line.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.endLote">EndLote</a></code></td>
+<td>CNAB240 only: close the open lote with the given <code>trailer_lote</code> values.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.startLote">StartLote</a></code></td>
+<td>CNAB240 only: begin a new lote with the given <code>header_lote</code> values.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.toFileContent">ToFileContent</a></code></td>
+<td>Emit the whole file: header + lotes/details + <code>trailer_arquivo</code>, lines joined with <code>\n</code> (no trailing newline).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.withHeader">WithHeader</a></code></td>
+<td>Set the values for the <code>header_arquivo</code> record.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>AddDetail</code> <a name="AddDetail" id="@cnab/core.CnabFileBuilder.addDetail"></a></h5>
+<pre><code class="language-csharp">private void AddDetail(string RecordName, System.Collections.Generic.IDictionary&lt;string, string&gt; Values)
+</code></pre>
+<p>Append a detail line.</p>
+<p><code>recordName</code> is the record&#39;s short name in scope,
+e.g. <code>detalhe_segmento_p</code> (CNAB240) or <code>detalhe</code> (CNAB400). Throws when
+the name is unknown in this scope or (CNAB240) when no lote is open.</p>
+<h6><code>RecordName</code><sup>Required</sup> <a name="RecordName" id="@cnab/core.CnabFileBuilder.addDetail.parameter.recordName"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabFileBuilder.addDetail.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h5><code>EndLote</code> <a name="EndLote" id="@cnab/core.CnabFileBuilder.endLote"></a></h5>
+<pre><code class="language-csharp">private void EndLote(System.Collections.Generic.IDictionary&lt;string, string&gt; TrailerValues)
+</code></pre>
+<p>CNAB240 only: close the open lote with the given <code>trailer_lote</code> values.</p>
+<p>The lote&#39;s <code>qtde_registro_lote</code> (header_lote + details + trailer_lote) is
+auto-computed unless supplied here.</p>
+<h6><code>TrailerValues</code><sup>Required</sup> <a name="TrailerValues" id="@cnab/core.CnabFileBuilder.endLote.parameter.trailerValues"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h5><code>StartLote</code> <a name="StartLote" id="@cnab/core.CnabFileBuilder.startLote"></a></h5>
+<pre><code class="language-csharp">private void StartLote(System.Collections.Generic.IDictionary&lt;string, string&gt; HeaderValues)
+</code></pre>
+<p>CNAB240 only: begin a new lote with the given <code>header_lote</code> values.</p>
+<p>Throws for CNAB400 (which has no lotes) and when a lote is already open.</p>
+<h6><code>HeaderValues</code><sup>Required</sup> <a name="HeaderValues" id="@cnab/core.CnabFileBuilder.startLote.parameter.headerValues"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h5><code>ToFileContent</code> <a name="ToFileContent" id="@cnab/core.CnabFileBuilder.toFileContent"></a></h5>
+<pre><code class="language-csharp">private string ToFileContent(System.Collections.Generic.IDictionary&lt;string, string&gt; TrailerValues)
+</code></pre>
+<p>Emit the whole file: header + lotes/details + <code>trailer_arquivo</code>, lines joined with <code>\n</code> (no trailing newline).</p>
+<p>Control fields are auto-computed
+per layout (see ADR 0007); user-supplied counter/total values win, pure
+sequence counters are always builder-owned.</p>
+<h6><code>TrailerValues</code><sup>Required</sup> <a name="TrailerValues" id="@cnab/core.CnabFileBuilder.toFileContent.parameter.trailerValues"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h5><code>WithHeader</code> <a name="WithHeader" id="@cnab/core.CnabFileBuilder.withHeader"></a></h5>
+<pre><code class="language-csharp">private void WithHeader(System.Collections.Generic.IDictionary&lt;string, string&gt; Values)
+</code></pre>
+<p>Set the values for the <code>header_arquivo</code> record.</p>
+<p>(Named <code>withHeader</code>
+rather than <code>setHeader</code> because jsii prohibits <code>setXxx</code> method names —
+they conflict with Java property setters.)</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabFileBuilder.withHeader.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.forBank">ForBank</a></code></td>
+<td>Create a builder scoped to the records of one bank (and optional variant / direction) — same record-key prefix logic as <code>CnabFile.forBank</code>. <code>variant</code> and <code>direction</code> may be empty strings.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFileBuilder.forBankBundled">ForBankBundled</a></code></td>
+<td>Same as <code>forBank</code>, but against the spec bundled with this package — the common path, and the only one available to consumers who have no <code>spec.json</code> file (i.e. everyone outside Node).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>ForBank</code> <a name="ForBank" id="@cnab/core.CnabFileBuilder.forBank"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabFileBuilder.ForBank(string SpecJson, string Layout, string Bank, string Variant, string Direction);
+</code></pre>
+<p>Create a builder scoped to the records of one bank (and optional variant / direction) — same record-key prefix logic as <code>CnabFile.forBank</code>. <code>variant</code> and <code>direction</code> may be empty strings.</p>
+<h6><code>SpecJson</code><sup>Required</sup> <a name="SpecJson" id="@cnab/core.CnabFileBuilder.forBank.parameter.specJson"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Layout</code><sup>Required</sup> <a name="Layout" id="@cnab/core.CnabFileBuilder.forBank.parameter.layout"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Bank</code><sup>Required</sup> <a name="Bank" id="@cnab/core.CnabFileBuilder.forBank.parameter.bank"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Variant</code><sup>Required</sup> <a name="Variant" id="@cnab/core.CnabFileBuilder.forBank.parameter.variant"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Direction</code><sup>Required</sup> <a name="Direction" id="@cnab/core.CnabFileBuilder.forBank.parameter.direction"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>ForBankBundled</code> <a name="ForBankBundled" id="@cnab/core.CnabFileBuilder.forBankBundled"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabFileBuilder.ForBankBundled(string Layout, string Bank, string Variant, string Direction);
+</code></pre>
+<p>Same as <code>forBank</code>, but against the spec bundled with this package — the common path, and the only one available to consumers who have no <code>spec.json</code> file (i.e. everyone outside Node).</p>
+<p>jsii forbids method overloads, so this is a distinct name rather than an
+optional first parameter.</p>
+<h6><code>Layout</code><sup>Required</sup> <a name="Layout" id="@cnab/core.CnabFileBuilder.forBankBundled.parameter.layout"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Bank</code><sup>Required</sup> <a name="Bank" id="@cnab/core.CnabFileBuilder.forBankBundled.parameter.bank"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Variant</code><sup>Required</sup> <a name="Variant" id="@cnab/core.CnabFileBuilder.forBankBundled.parameter.variant"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Direction</code><sup>Required</sup> <a name="Direction" id="@cnab/core.CnabFileBuilder.forBankBundled.parameter.direction"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h3>CnabRecord <a name="CnabRecord" id="@cnab/core.CnabRecord"></a></h3>
+<p>A single CNAB record spec with operations to <code>parse</code>, <code>build</code> and <code>validate</code> one fixed-width line.</p>
+<h4>Methods <a name="Methods" id="Methods"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabRecord.getDateIso">GetDateIso</a></code></td>
+<td>Read the value of a date/time field from a parsed value map and return it in ISO form, converted per the field&#39;s <code>dateFormat</code>:  - <code>ddMMyyyy</code> -&gt; <code>YYYY-MM-DD</code> - <code>ddMMyy</code>   -&gt; <code>YYYY-MM-DD</code>, with a fixed century pivot: <code>yy &gt;= 70</code> is   read as <code>19yy</code>, otherwise <code>20yy</code> (so the representable range is   1970-2069;</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.getDecimal">GetDecimal</a></code></td>
+<td>Read the value of a decimal field (<code>num_decimal</code>) from a parsed value map and return it as a <strong>decimal string</strong> with the field&#39;s implied decimal places inserted, e.g. raw <code>&quot;150000&quot;</code> with <code>decimals: 2</code> -&gt; <code>&quot;1500.00&quot;</code> and <code>&quot;0&quot;</code> -&gt; <code>&quot;0.00&quot;</code>. For fields with <code>decimals: 0</code> the integer string is returned unchanged.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.parse">Parse</a></code></td>
+<td>Parse a fixed-width line into a map of field name -&gt; value.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.setDateIso">SetDateIso</a></code></td>
+<td>Set the value of a date/time field from an ISO string, the inverse of <code>getDateIso</code>:.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.setDecimal">SetDecimal</a></code></td>
+<td>Set the value of a decimal field (<code>num_decimal</code>) from a <strong>decimal string</strong>, the inverse of <code>getDecimal</code>: <code>&quot;1500.00&quot;</code> with <code>decimals: 2</code> stores <code>&quot;150000&quot;</code> in the map. The separator is <code>.</code>; the fractional part may be omitted (<code>&quot;1500&quot;</code> -&gt; <code>&quot;150000&quot;</code>) or shorter than the field&#39;s decimals (it is right-padded with zeros: <code>&quot;1500.5&quot;</code> -&gt; <code>&quot;150050&quot;</code>).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.toLine">ToLine</a></code></td>
+<td>Build a fixed-width line from a map of field name -&gt; value.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.toLineWithOptions">ToLineWithOptions</a></code></td>
+<td>Same as <code>toLine</code>, but with explicit control over what happens to values that do not fit or are not digit strings (see <code>LineOptions</code>).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabRecord.validate">Validate</a></code></td>
+<td>Validate a line against this record spec.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>GetDateIso</code> <a name="GetDateIso" id="@cnab/core.CnabRecord.getDateIso"></a></h5>
+<pre><code class="language-csharp">private string GetDateIso(System.Collections.Generic.IDictionary&lt;string, string&gt; Values, string Name)
+</code></pre>
+<p>Read the value of a date/time field from a parsed value map and return it in ISO form, converted per the field&#39;s <code>dateFormat</code>:  - <code>ddMMyyyy</code> -&gt; <code>YYYY-MM-DD</code> - <code>ddMMyy</code>   -&gt; <code>YYYY-MM-DD</code>, with a fixed century pivot: <code>yy &gt;= 70</code> is   read as <code>19yy</code>, otherwise <code>20yy</code> (so the representable range is   1970-2069;</p>
+<p>see ADR 0006)</p>
+<ul>
+<li><code>HHmmss</code>   -&gt; <code>HH:mm:ss</code></li>
+</ul>
+<p>Returns <code>&#39;&#39;</code> when the raw value is all zeros (CNAB&#39;s &quot;unset&quot; convention).
+Throws when the field name is unknown, the field has no <code>dateFormat</code>, or
+the stored value is not a digit string.</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabRecord.getDateIso.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h6><code>Name</code><sup>Required</sup> <a name="Name" id="@cnab/core.CnabRecord.getDateIso.parameter.name"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>GetDecimal</code> <a name="GetDecimal" id="@cnab/core.CnabRecord.getDecimal"></a></h5>
+<pre><code class="language-csharp">private string GetDecimal(System.Collections.Generic.IDictionary&lt;string, string&gt; Values, string Name)
+</code></pre>
+<p>Read the value of a decimal field (<code>num_decimal</code>) from a parsed value map and return it as a <strong>decimal string</strong> with the field&#39;s implied decimal places inserted, e.g. raw <code>&quot;150000&quot;</code> with <code>decimals: 2</code> -&gt; <code>&quot;1500.00&quot;</code> and <code>&quot;0&quot;</code> -&gt; <code>&quot;0.00&quot;</code>. For fields with <code>decimals: 0</code> the integer string is returned unchanged.</p>
+<p>Numeric values cross the API boundary as decimal strings — never floats —
+so they stay exact, jsii-safe and language-neutral (see ADR 0006).</p>
+<p>Throws when the field name is unknown or the stored value is not a digit
+string.</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabRecord.getDecimal.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h6><code>Name</code><sup>Required</sup> <a name="Name" id="@cnab/core.CnabRecord.getDecimal.parameter.name"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>Parse</code> <a name="Parse" id="@cnab/core.CnabRecord.parse"></a></h5>
+<pre><code class="language-csharp">private System.Collections.Generic.IDictionary&lt;string, string&gt; Parse(string Line)
+</code></pre>
+<p>Parse a fixed-width line into a map of field name -&gt; value.</p>
+<p>Values are
+normalized (alpha right-trimmed, numerics stripped of left padding) so that
+<code>toLine(parse(line))</code> reproduces a well-formed line.</p>
+<h6><code>Line</code><sup>Required</sup> <a name="Line" id="@cnab/core.CnabRecord.parse.parameter.line"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>SetDateIso</code> <a name="SetDateIso" id="@cnab/core.CnabRecord.setDateIso"></a></h5>
+<pre><code class="language-csharp">private System.Collections.Generic.IDictionary&lt;string, string&gt; SetDateIso(System.Collections.Generic.IDictionary&lt;string, string&gt; Values, string Name, string Iso)
+</code></pre>
+<p>Set the value of a date/time field from an ISO string, the inverse of <code>getDateIso</code>:.</p>
+<ul>
+<li><code>ddMMyyyy</code>: <code>&quot;2026-07-15&quot;</code> -&gt; <code>&quot;15072026&quot;</code></li>
+<li><code>ddMMyy</code>:   <code>&quot;2026-07-15&quot;</code> -&gt; <code>&quot;150726&quot;</code> (the year must fall in the
+1970-2069 pivot window documented on <code>getDateIso</code>, otherwise it could
+not be read back)</li>
+<li><code>HHmmss</code>:   <code>&quot;10:30:00&quot;</code> -&gt; <code>&quot;103000&quot;</code></li>
+</ul>
+<p>An empty string stores the all-zeros &quot;unset&quot; value.</p>
+<p>Returns a <strong>new map</strong> with the field set; the input is not modified. See
+<code>setDecimal</code> for why this cannot mutate — jsii marshals maps by value, so
+the old <code>void</code> + mutate signature only ever worked in Node.</p>
+<pre><code class="language-csharp">// Example automatically generated from non-compiling source. May contain errors.
+values = record.SetDateIso(values, &quot;vencimento&quot;, &quot;2026-03-15&quot;);
+</code></pre>
+<p>Throws when the field name is unknown, the field has no <code>dateFormat</code>, or
+the input is malformed (wrong shape, month/day/time component out of range).</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabRecord.setDateIso.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h6><code>Name</code><sup>Required</sup> <a name="Name" id="@cnab/core.CnabRecord.setDateIso.parameter.name"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Iso</code><sup>Required</sup> <a name="Iso" id="@cnab/core.CnabRecord.setDateIso.parameter.iso"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>SetDecimal</code> <a name="SetDecimal" id="@cnab/core.CnabRecord.setDecimal"></a></h5>
+<pre><code class="language-csharp">private System.Collections.Generic.IDictionary&lt;string, string&gt; SetDecimal(System.Collections.Generic.IDictionary&lt;string, string&gt; Values, string Name, string DecimalValue)
+</code></pre>
+<p>Set the value of a decimal field (<code>num_decimal</code>) from a <strong>decimal string</strong>, the inverse of <code>getDecimal</code>: <code>&quot;1500.00&quot;</code> with <code>decimals: 2</code> stores <code>&quot;150000&quot;</code> in the map. The separator is <code>.</code>; the fractional part may be omitted (<code>&quot;1500&quot;</code> -&gt; <code>&quot;150000&quot;</code>) or shorter than the field&#39;s decimals (it is right-padded with zeros: <code>&quot;1500.5&quot;</code> -&gt; <code>&quot;150050&quot;</code>).</p>
+<p>Returns a <strong>new map</strong> with the field set; the input is not modified. It
+cannot mutate: jsii marshals maps <strong>by value</strong>, so a mutation performed
+here would be invisible to a Python/Java/.NET caller. This method used to
+return <code>void</code> and mutate, which worked only in Node and silently did
+nothing everywhere else.</p>
+<pre><code class="language-csharp">// Example automatically generated from non-compiling source. May contain errors.
+values = record.SetDecimal(values, &quot;valor_titulo&quot;, &quot;1500.00&quot;);
+</code></pre>
+<p>Throws when the field name is unknown, the value is not a well-formed
+decimal string, or it carries more fraction digits than the field allows.</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabRecord.setDecimal.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h6><code>Name</code><sup>Required</sup> <a name="Name" id="@cnab/core.CnabRecord.setDecimal.parameter.name"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>DecimalValue</code><sup>Required</sup> <a name="DecimalValue" id="@cnab/core.CnabRecord.setDecimal.parameter.decimalValue"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>ToLine</code> <a name="ToLine" id="@cnab/core.CnabRecord.toLine"></a></h5>
+<pre><code class="language-csharp">private string ToLine(System.Collections.Generic.IDictionary&lt;string, string&gt; Values)
+</code></pre>
+<p>Build a fixed-width line from a map of field name -&gt; value.</p>
+<p>Missing fields
+fall back to their default value. (Named <code>toLine</code> rather than <code>build</code>
+because <code>build</code> is a prohibited member name in jsii.)</p>
+<p>This is the <strong>strict</strong> builder: it never silently rewrites a value.
+It throws an <code>Error</code> naming the field, its positions and its width when</p>
+<ul>
+<li>an alphanumeric value is longer than its field;</li>
+<li>a numeric value has more significant digits than its field (redundant
+leading zeros are fine: <code>&quot;00150000&quot;</code> in a 6-wide field is <code>&quot;150000&quot;</code>,
+nothing is lost);</li>
+<li>a numeric value is not a digit string (<code>&quot;1500.00&quot;</code>, <code>&quot;-10&quot;</code>, <code>&quot;R$ 10&quot;</code>).
+CNAB numeric fields are <strong>unsigned digit strings</strong> with implied decimals;
+use <code>setDecimal</code> to write decimal input.</li>
+</ul>
+<p>An empty value is always allowed and produces the field&#39;s blank/zero fill;
+on a numeric field an all-blank value means the same thing (CNAB&#39;s &quot;unset&quot;
+spelling) and is zero-filled. Values produced by <code>parse</code> always round-trip:
+<code>toLine(parse(line)) === line</code> for a well-formed line.</p>
+<p>Use <code>toLineWithOptions</code> to opt back into the legacy lenient behaviour.</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabRecord.toLine.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h5><code>ToLineWithOptions</code> <a name="ToLineWithOptions" id="@cnab/core.CnabRecord.toLineWithOptions"></a></h5>
+<pre><code class="language-csharp">private string ToLineWithOptions(System.Collections.Generic.IDictionary&lt;string, string&gt; Values, LineOptions Options)
+</code></pre>
+<p>Same as <code>toLine</code>, but with explicit control over what happens to values that do not fit or are not digit strings (see <code>LineOptions</code>).</p>
+<p><code>toLineWithOptions(values, { truncateOversized: true, stripNonDigits: true })</code>
+reproduces the pre-strict (legacy) behaviour: oversized alphanumerics are
+cut on the right, oversized numerics keep their rightmost digits, and
+non-digit characters are deleted from numeric values. That behaviour
+<strong>silently alters amounts and identifiers</strong>, so it exists only as a
+deliberate opt-out for callers migrating legacy pipelines.</p>
+<p>(A separate method rather than an optional argument or an overload:
+jsii prohibits method overloads.)</p>
+<h6><code>Values</code><sup>Required</sup> <a name="Values" id="@cnab/core.CnabRecord.toLineWithOptions.parameter.values"></a></h6>
+<ul>
+<li><em>Type:</em> System.Collections.Generic.IDictionary&lt;string, string&gt;</li>
+</ul>
+<hr>
+<h6><code>Options</code><sup>Required</sup> <a name="Options" id="@cnab/core.CnabRecord.toLineWithOptions.parameter.options"></a></h6>
+<ul>
+<li><em>Type:</em> <a href="#@cnab/core.LineOptions">LineOptions</a></li>
+</ul>
+<hr>
+<h5><code>Validate</code> <a name="Validate" id="@cnab/core.CnabRecord.validate"></a></h5>
+<pre><code class="language-csharp">private ValidationResult Validate(string Line)
+</code></pre>
+<p>Validate a line against this record spec.</p>
+<h6><code>Line</code><sup>Required</sup> <a name="Line" id="@cnab/core.CnabRecord.validate.parameter.line"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabRecord.fromJson">FromJson</a></code></td>
+<td>Build a record from its compiled JSON (a single record node of <code>packages/spec/dist/spec.json</code>).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>FromJson</code> <a name="FromJson" id="@cnab/core.CnabRecord.fromJson"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabRecord.FromJson(string Json);
+</code></pre>
+<p>Build a record from its compiled JSON (a single record node of <code>packages/spec/dist/spec.json</code>).</p>
+<h6><code>Json</code><sup>Required</sup> <a name="Json" id="@cnab/core.CnabRecord.fromJson.parameter.json"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h4>Properties <a name="Properties" id="Properties"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabRecord.property.spec">Spec</a></code></td>
+<td><code><a href="#@cnab/core.RecordSpec">RecordSpec</a></code></td>
+<td>The underlying record specification.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Spec</code><sup>Required</sup> <a name="Spec" id="@cnab/core.CnabRecord.property.spec"></a></h5>
+<pre><code class="language-csharp">public RecordSpec Spec { get; }
+</code></pre>
+<ul>
+<li><em>Type:</em> <a href="#@cnab/core.RecordSpec">RecordSpec</a></li>
+</ul>
+<p>The underlying record specification.</p>
+<hr>
+<h3>CnabSpec <a name="CnabSpec" id="@cnab/core.CnabSpec"></a></h3>
+<p>A compiled spec: a collection of named records (whole <code>spec.json</code>).</p>
+<h4>Methods <a name="Methods" id="Methods"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabSpec.codeTableKeys">CodeTableKeys</a></code></td>
+<td>All available code-table keys, e.g. <code>cnab400/104/retorno/codigo_ocorrencia</code>.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.getCodeTable">GetCodeTable</a></code></td>
+<td>Get a code table (code -&gt; description map) by key.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.getRecord">GetRecord</a></code></td>
+<td>Get a record by key.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.hasCodeTable">HasCodeTable</a></code></td>
+<td>Whether a code table with the given key exists.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.hasRecord">HasRecord</a></code></td>
+<td>Whether a record with the given key exists.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.lookupCode">LookupCode</a></code></td>
+<td>Look up a code&#39;s description in a table, or <code>&#39;&#39;</code> when the code is unknown.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.recordKeys">RecordKeys</a></code></td>
+<td>All available record keys, e.g. <code>cnab240/104/sigcb/header_arquivo</code>.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>CodeTableKeys</code> <a name="CodeTableKeys" id="@cnab/core.CnabSpec.codeTableKeys"></a></h5>
+<pre><code class="language-csharp">private string[] CodeTableKeys()
+</code></pre>
+<p>All available code-table keys, e.g. <code>cnab400/104/retorno/codigo_ocorrencia</code>.</p>
+<h5><code>GetCodeTable</code> <a name="GetCodeTable" id="@cnab/core.CnabSpec.getCodeTable"></a></h5>
+<pre><code class="language-csharp">private System.Collections.Generic.IDictionary&lt;string, string&gt; GetCodeTable(string Key)
+</code></pre>
+<p>Get a code table (code -&gt; description map) by key.</p>
+<p>Throws if it does not exist.</p>
+<h6><code>Key</code><sup>Required</sup> <a name="Key" id="@cnab/core.CnabSpec.getCodeTable.parameter.key"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>GetRecord</code> <a name="GetRecord" id="@cnab/core.CnabSpec.getRecord"></a></h5>
+<pre><code class="language-csharp">private CnabRecord GetRecord(string Key)
+</code></pre>
+<p>Get a record by key.</p>
+<p>Throws if it does not exist.</p>
+<h6><code>Key</code><sup>Required</sup> <a name="Key" id="@cnab/core.CnabSpec.getRecord.parameter.key"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>HasCodeTable</code> <a name="HasCodeTable" id="@cnab/core.CnabSpec.hasCodeTable"></a></h5>
+<pre><code class="language-csharp">private bool HasCodeTable(string Key)
+</code></pre>
+<p>Whether a code table with the given key exists.</p>
+<h6><code>Key</code><sup>Required</sup> <a name="Key" id="@cnab/core.CnabSpec.hasCodeTable.parameter.key"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>HasRecord</code> <a name="HasRecord" id="@cnab/core.CnabSpec.hasRecord"></a></h5>
+<pre><code class="language-csharp">private bool HasRecord(string Key)
+</code></pre>
+<p>Whether a record with the given key exists.</p>
+<h6><code>Key</code><sup>Required</sup> <a name="Key" id="@cnab/core.CnabSpec.hasRecord.parameter.key"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>LookupCode</code> <a name="LookupCode" id="@cnab/core.CnabSpec.lookupCode"></a></h5>
+<pre><code class="language-csharp">private string LookupCode(string Key, string Code)
+</code></pre>
+<p>Look up a code&#39;s description in a table, or <code>&#39;&#39;</code> when the code is unknown.</p>
+<p>The code is normalized during lookup: tried as-is, then with leading zeros
+stripped (legacy tables use unpadded keys like <code>&quot;2&quot;</code> while CNAB fields
+carry <code>&quot;02&quot;</code>), then zero-padded to 2 digits.</p>
+<h6><code>Key</code><sup>Required</sup> <a name="Key" id="@cnab/core.CnabSpec.lookupCode.parameter.key"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h6><code>Code</code><sup>Required</sup> <a name="Code" id="@cnab/core.CnabSpec.lookupCode.parameter.code"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>RecordKeys</code> <a name="RecordKeys" id="@cnab/core.CnabSpec.recordKeys"></a></h5>
+<pre><code class="language-csharp">private string[] RecordKeys()
+</code></pre>
+<p>All available record keys, e.g. <code>cnab240/104/sigcb/header_arquivo</code>.</p>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.CnabSpec.bundled">Bundled</a></code></td>
+<td>The compiled spec that ships inside this package — no file, no download, no <code>spec.json</code> path to resolve.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.bundledJson">BundledJson</a></code></td>
+<td>The raw JSON of the spec that ships inside this package, so the <code>specJson</code>-taking entry points (<code>CnabFile.detectScope</code>, <code>CnabFile.detect</code>, …) are usable without a file too.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabSpec.fromJson">FromJson</a></code></td>
+<td>Load from the compiled <code>spec.json</code> content.</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Bundled</code> <a name="Bundled" id="@cnab/core.CnabSpec.bundled"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabSpec.Bundled();
+</code></pre>
+<p>The compiled spec that ships inside this package — no file, no download, no <code>spec.json</code> path to resolve.</p>
+<p>This is the entry point for every non-Node language: a Python / Java /
+.NET consumer installs the engine and immediately has the full catalog,
+every record and every code table.</p>
+<h5><code>BundledJson</code> <a name="BundledJson" id="@cnab/core.CnabSpec.bundledJson"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabSpec.BundledJson();
+</code></pre>
+<p>The raw JSON of the spec that ships inside this package, so the <code>specJson</code>-taking entry points (<code>CnabFile.detectScope</code>, <code>CnabFile.detect</code>, …) are usable without a file too.</p>
+<h5><code>FromJson</code> <a name="FromJson" id="@cnab/core.CnabSpec.fromJson"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+CnabSpec.FromJson(string Json);
+</code></pre>
+<p>Load from the compiled <code>spec.json</code> content.</p>
+<h6><code>Json</code><sup>Required</sup> <a name="Json" id="@cnab/core.CnabSpec.fromJson.parameter.json"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h3>Modulo <a name="Modulo" id="@cnab/core.Modulo"></a></h3>
+<p>Check-digit (dígito verificador, DV) algorithms used across CNAB and boleto layouts.</p>
+<p>These are the generic building blocks: per-bank <em>nosso número</em> DV rules
+vary by institution (each bank manual defines its own weights, ranges and
+exception mapping) and are intentionally not implemented here — compose
+them from <code>Modulo.mod10</code> / <code>Modulo.mod11</code> following the bank&#39;s manual.</p>
+<h4>Static Functions <a name="Static Functions" id="Static Functions"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.Modulo.mod10">Mod10</a></code></td>
+<td>Módulo 10 (boleto / linha digitável field DV).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Modulo.mod11">Mod11</a></code></td>
+<td>Generic CNAB módulo 11 (remessa/retorno field DVs).</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.Modulo.mod11Boleto">Mod11Boleto</a></code></td>
+<td>FEBRABAN barcode módulo 11 variant (the general check digit — DAC — of the 44-digit cobrança barcode, position 5).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>Mod10</code> <a name="Mod10" id="@cnab/core.Modulo.mod10"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Modulo.Mod10(string Digits);
+</code></pre>
+<p>Módulo 10 (boleto / linha digitável field DV).</p>
+<p>Rule: weights 2 and 1 alternate right-to-left starting with 2. Each
+digit is multiplied by its weight; when a product exceeds 9 its decimal
+digits are summed (e.g. 12 → 1 + 2 = 3). The DV is the amount needed to
+reach the next multiple of 10: <code>(10 - (sum % 10)) % 10</code>.</p>
+<h6><code>Digits</code><sup>Required</sup> <a name="Digits" id="@cnab/core.Modulo.mod10.parameter.digits"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>numeric string (one or more digits).</p>
+<hr>
+<h5><code>Mod11</code> <a name="Mod11" id="@cnab/core.Modulo.mod11"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Modulo.Mod11(string Digits);
+</code></pre>
+<p>Generic CNAB módulo 11 (remessa/retorno field DVs).</p>
+<p>Rule: weights 2, 3, ..., 9 cycle right-to-left. The DV is
+<code>11 - (sum % 11)</code>; when that result is 0, 10 or 11 the DV is 0.</p>
+<h6><code>Digits</code><sup>Required</sup> <a name="Digits" id="@cnab/core.Modulo.mod11.parameter.digits"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>numeric string (one or more digits).</p>
+<hr>
+<h5><code>Mod11Boleto</code> <a name="Mod11Boleto" id="@cnab/core.Modulo.mod11Boleto"></a></h5>
+<pre><code class="language-csharp">using Cnab.Core;
+
+Modulo.Mod11Boleto(string Digits);
+</code></pre>
+<p>FEBRABAN barcode módulo 11 variant (the general check digit — DAC — of the 44-digit cobrança barcode, position 5).</p>
+<p>Rule: same weighting as <code>mod11</code> (weights 2..9 cycling right-to-left),
+but the DV is <code>11 - (sum % 11)</code> mapped so that a result of 0, 1, 10 or
+11 becomes 1 (the barcode DV can never be 0).</p>
+<h6><code>Digits</code><sup>Required</sup> <a name="Digits" id="@cnab/core.Modulo.mod11Boleto.parameter.digits"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>numeric string (one or more digits).</p>
+<hr>
+<h2>Enums <a name="Enums" id="Enums"></a></h2>
+<h3>FieldType <a name="FieldType" id="@cnab/core.FieldType"></a></h3>
+<p>How a fixed-width field is typed and padded.</p>
+<h4>Members <a name="Members" id="Members"></a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code><a href="#@cnab/core.FieldType.NUM">NUM</a></code></td>
+<td>Numeric: right-aligned, zero-padded.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldType.ALPHA">ALPHA</a></code></td>
+<td>Alphanumeric text: left-aligned, space-padded.</td>
+</tr>
+<tr>
+<td><code><a href="#@cnab/core.FieldType.NUM_DECIMAL">NUM_DECIMAL</a></code></td>
+<td>Numeric with implied decimal places (the separator is not stored).</td>
+</tr>
+</tbody></table>
+<hr>
+<h5><code>NUM</code> <a name="NUM" id="@cnab/core.FieldType.NUM"></a></h5>
+<p>Numeric: right-aligned, zero-padded.</p>
+<hr>
+<h5><code>ALPHA</code> <a name="ALPHA" id="@cnab/core.FieldType.ALPHA"></a></h5>
+<p>Alphanumeric text: left-aligned, space-padded.</p>
+<hr>
+<h5><code>NUM_DECIMAL</code> <a name="NUM_DECIMAL" id="@cnab/core.FieldType.NUM_DECIMAL"></a></h5>
+<p>Numeric with implied decimal places (the separator is not stored).</p>
+<hr>
+
+</div>
+</body>
+</html>
