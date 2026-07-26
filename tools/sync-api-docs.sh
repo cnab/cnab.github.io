@@ -52,6 +52,61 @@ rm -rf "$HERE/api"
 mkdir -p "$HERE/api"
 cp -r site/. "$HERE/api/"
 
+# --- the landing page carries the version too --------------------------------
+#
+# api/ is regenerated above and therefore always current. index.html is
+# hand-written and is NOT, and it has now gone stale twice running: it still
+# advertised v0.1.0 two releases later, was corrected to v0.3.0, and was stale
+# again one release after that. For a page whose entire job is telling people
+# what to download, a wrong version is worse than no version.
+#
+# So rewrite it here rather than trusting anyone to remember, and then assert
+# that no other version string survived -- a silent no-op rewrite (a renamed
+# badge, a new install example) is exactly how it went stale the last two times.
+
+echo "==> stamping $VERSION into index.html"
+PAGE="$HERE/index.html"
+python3 - "$PAGE" "$VERSION" <<'PY'
+import re, sys
+
+path, version = sys.argv[1], sys.argv[2]
+src = open(path, encoding='utf-8').read()
+
+# Deliberately broad: every X.Y.Z on the page. The narrow alternatives all fail
+# the same way -- a lookbehind excluding "-" skips `cnab-core-0.3.0.tgz`, which
+# is one of the strings that actually went stale, and an explicit list of
+# patterns cannot cover install examples nobody has written yet.
+#
+# Broad is only safe because of the assertion below: if the page ever gains a
+# three-part version that is NOT the SDK's (a spec revision, a linked tool),
+# this refuses to run rather than silently rewriting it. Two-part versions are
+# untouched, so "Python 3.10" and ".NET 6.0" are unaffected by construction.
+VERSION_RE = re.compile(r'\d+\.\d+\.\d+')
+
+# The test is "exactly one distinct X.Y.Z on the page", NOT "nothing other than
+# the new version" -- before stamping, the page legitimately still holds the
+# PREVIOUS release, so the latter would fire on every ordinary run. If there is
+# more than one distinct value, the script cannot tell which belongs to the SDK
+# and must not guess.
+found = set(VERSION_RE.findall(src))
+if len(found) > 1:
+    sys.exit(
+        'error: index.html contains several distinct X.Y.Z versions, so the\n'
+        "       stamp cannot tell which are the SDK's:\n         "
+        + '\n         '.join(sorted(found))
+        + '\n       Rewrite them by hand, or narrow this script.'
+    )
+
+src = VERSION_RE.sub(version, src)
+open(path, 'w', encoding='utf-8').write(src)
+
+remaining = set(VERSION_RE.findall(src)) - {version}
+if remaining:
+    sys.exit(f'error: index.html still mentions {sorted(remaining)} after stamping')
+print(f'    stamped {len(VERSION_RE.findall(src))} version string(s) to {version}')
+PY
+
 echo
 echo "synced api/ from CNAB-SDK v$VERSION — $(find "$HERE/api" -type f | wc -l) files"
+echo "index.html stamped to v$VERSION"
 echo "review the diff, then commit."
