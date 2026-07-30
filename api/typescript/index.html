@@ -39,7 +39,7 @@
 <body>
 <header><div class="wrap">
   <h1 class="title"><a href="../../">CNAB SDK</a> — API reference</h1>
-  <p class="sub">Generated from the jsii assembly for <code>@cnab/core@0.4.0</code>,
+  <p class="sub">Generated from the jsii assembly for <code>@cnab/core@0.5.0</code>,
      so every signature below is the one this language actually has.</p>
   <div class="langs"><span class="lang current">TypeScript / Node.js</span><a class="lang" href="../python/">Python</a><a class="lang" href="../java/">Java</a><a class="lang" href="../csharp/">.NET / C#</a></div>
 </div></header>
@@ -1099,6 +1099,10 @@ that is not a well-formed payload — callers use this as a predicate.</p>
 <td><code><a href="#@cnab/core.CnabFile.parse">parse</a></code></td>
 <td>Parse a whole file&#39;s content into one <code>ParsedLine</code> per non-empty line.</td>
 </tr>
+<tr>
+<td><code><a href="#@cnab/core.CnabFile.parseToJson">parseToJson</a></code></td>
+<td>Parse file content and return the result as a <strong>single JSON string</strong>: an array of objects shaped exactly like <code>ParsedLine</code> — <code>[{&quot;recordKey&quot;:…,&quot;tipo&quot;:…,&quot;segment&quot;:…,&quot;fields&quot;:{…}}]</code>, camelCase keys, the same values <code>parse</code> produces, in the same order.</td>
+</tr>
 </tbody></table>
 <hr>
 <h5><code>parse</code> <a name="parse" id="@cnab/core.CnabFile.parse"></a></h5>
@@ -1107,7 +1111,40 @@ that is not a well-formed payload — callers use this as a predicate.</p>
 <p>Parse a whole file&#39;s content into one <code>ParsedLine</code> per non-empty line.</p>
 <p>A leading UTF-8 BOM (U+FEFF) is ignored, and both LF and CRLF line endings
 are accepted.</p>
+<p><strong>This is the Node path.</strong> Everywhere else, each returned <code>ParsedLine</code> and
+its ~40-key field map is marshalled across the jsii kernel individually, at
+a cost of milliseconds <em>per line</em> — a six-figure-line retorno takes
+minutes. Use <code>parseToJson</code> in Python/Java/.NET. See &quot;Large files&quot; in the
+package README, and ADR 0010, for the measurements.</p>
 <h6><code>content</code><sup>Required</sup> <a name="content" id="@cnab/core.CnabFile.parse.parameter.content"></a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr>
+<h5><code>parseToJson</code> <a name="parseToJson" id="@cnab/core.CnabFile.parseToJson"></a></h5>
+<pre><code class="language-typescript">public parseToJson(content: string): string
+</code></pre>
+<p>Parse file content and return the result as a <strong>single JSON string</strong>: an array of objects shaped exactly like <code>ParsedLine</code> — <code>[{&quot;recordKey&quot;:…,&quot;tipo&quot;:…,&quot;segment&quot;:…,&quot;fields&quot;:{…}}]</code>, camelCase keys, the same values <code>parse</code> produces, in the same order.</p>
+<p>This exists because <code>parse</code> does not scale outside Node. jsii marshals
+every returned <code>ParsedLine</code> and its field map across the kernel
+individually, so 200,000 lines is 200,000 crossings and Python/Java/.NET
+spend <em>minutes</em> rebuilding objects. This is <strong>one</strong> crossing of one string,
+decoded by the host&#39;s own native, in-process JSON parser.</p>
+<pre><code class="language-python">import json
+rows = json.loads(cnab_file.parse_to_json(content))
+rows[0][&quot;fields&quot;][&quot;nosso_numero&quot;]
+</code></pre>
+<p><strong>Feed it a few thousand lines at a time.</strong> The jsii boundary degrades
+sharply on large strings <em>in both directions</em>, so one call carrying a whole
+200,000-line file is several times slower than twenty calls carrying
+10,000 lines each — and it also forces both runtimes to hold the entire
+result at once. Because classification is per line and carries no state,
+splitting the file into chunks of whole lines is exactly equivalent to one
+call. ADR 0010 has the numbers and a worked example per language.</p>
+<p>Line handling is identical to <code>parse</code>: a leading UTF-8 BOM is ignored, both
+LF and CRLF are accepted, empty lines are skipped, and an unclassifiable
+line yields an empty <code>recordKey</code> and an empty <code>fields</code> object.</p>
+<h6><code>content</code><sup>Required</sup> <a name="content" id="@cnab/core.CnabFile.parseToJson.parameter.content"></a></h6>
 <ul>
 <li><em>Type:</em> string</li>
 </ul>
