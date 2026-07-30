@@ -1155,6 +1155,7 @@ Scope it to one bank/variant/direction with `forBank`.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cnab/core.CnabFile.parse">Parse</a></code> | Parse a whole file's content into one `ParsedLine` per non-empty line. |
+| <code><a href="#@cnab/core.CnabFile.parseToJson">ParseToJson</a></code> | Parse file content and return the result as a **single JSON string**: an array of objects shaped exactly like `ParsedLine` — `[{"recordKey":…,"tipo":…,"segment":…,"fields":{…}}]`, camelCase keys, the same values `parse` produces, in the same order. |
 
 ---
 
@@ -1169,7 +1170,51 @@ Parse a whole file's content into one `ParsedLine` per non-empty line.
 A leading UTF-8 BOM (U+FEFF) is ignored, and both LF and CRLF line endings
 are accepted.
 
+**This is the Node path.** Everywhere else, each returned `ParsedLine` and
+its ~40-key field map is marshalled across the jsii kernel individually, at
+a cost of milliseconds *per line* — a six-figure-line retorno takes
+minutes. Use `parseToJson` in Python/Java/.NET. See "Large files" in the
+package README, and ADR 0010, for the measurements.
+
 ###### `Content`<sup>Required</sup> <a name="Content" id="@cnab/core.CnabFile.parse.parameter.content"></a>
+
+- *Type:* string
+
+---
+
+##### `ParseToJson` <a name="ParseToJson" id="@cnab/core.CnabFile.parseToJson"></a>
+
+```csharp
+private string ParseToJson(string Content)
+```
+
+Parse file content and return the result as a **single JSON string**: an array of objects shaped exactly like `ParsedLine` — `[{"recordKey":…,"tipo":…,"segment":…,"fields":{…}}]`, camelCase keys, the same values `parse` produces, in the same order.
+
+This exists because `parse` does not scale outside Node. jsii marshals
+every returned `ParsedLine` and its field map across the kernel
+individually, so 200,000 lines is 200,000 crossings and Python/Java/.NET
+spend *minutes* rebuilding objects. This is **one** crossing of one string,
+decoded by the host's own native, in-process JSON parser.
+
+```python
+import json
+rows = json.loads(cnab_file.parse_to_json(content))
+rows[0]["fields"]["nosso_numero"]
+```
+
+**Feed it a few thousand lines at a time.** The jsii boundary degrades
+sharply on large strings *in both directions*, so one call carrying a whole
+200,000-line file is several times slower than twenty calls carrying
+10,000 lines each — and it also forces both runtimes to hold the entire
+result at once. Because classification is per line and carries no state,
+splitting the file into chunks of whole lines is exactly equivalent to one
+call. ADR 0010 has the numbers and a worked example per language.
+
+Line handling is identical to `parse`: a leading UTF-8 BOM is ignored, both
+LF and CRLF are accepted, empty lines are skipped, and an unclassifiable
+line yields an empty `recordKey` and an empty `fields` object.
+
+###### `Content`<sup>Required</sup> <a name="Content" id="@cnab/core.CnabFile.parseToJson.parameter.content"></a>
 
 - *Type:* string
 

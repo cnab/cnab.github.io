@@ -131,10 +131,10 @@
       <a class="btn" href="https://github.com/cnab/CNAB-SDK/releases">Releases</a>
     </div>
     <div class="badges">
-      <span class="badge">v0.4.0</span>
+      <span class="badge">v0.5.0</span>
       <span class="badge">55 records</span>
       <span class="badge">5 banks</span>
-      <span class="badge">376 tests</span>
+      <span class="badge">407 tests</span>
       <span class="badge">MIT</span>
     </div>
   </div>
@@ -211,11 +211,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong><a href="./api/typescript/">Node.js / TypeScript</a></strong></td><td>18</td><td><code>@cnab/core</code>, <code>@cnab/spec</code>, <code>@cnab/cli</code></td><td>22</td><td class="num">237</td></tr>
-    <tr><td><strong><a href="./api/python/">Python</a></strong></td><td>3.10</td><td><code>cnab-core</code> → <code>import cnab_core</code></td><td>3.11</td><td class="num">53</td></tr>
-    <tr><td><strong><a href="./api/java/">Java</a></strong></td><td>8</td><td><code>org.cnab:cnab-core</code></td><td>17</td><td class="num">41</td></tr>
-    <tr><td><strong><a href="./api/csharp/">.NET</a></strong></td><td>6.0</td><td><code>Cnab.Core</code></td><td>8.0</td><td class="num">45</td></tr>
-    <tr><td><strong>Go</strong></td><td colspan="4"><span class="no">not generated yet</span> — <a href="https://github.com/cnab/CNAB-SDK/issues/41">#41</a></td></tr>
+    <tr><td><strong><a href="./api/typescript/">Node.js / TypeScript</a></strong></td><td>18</td><td><code>@cnab/core</code>, <code>@cnab/spec</code>, <code>@cnab/cli</code></td><td>22</td><td class="num">242</td></tr>
+    <tr><td><strong><a href="./api/python/">Python</a></strong></td><td>3.10</td><td><code>cnab-core</code> → <code>import cnab_core</code></td><td>3.11</td><td class="num">58</td></tr>
+    <tr><td><strong><a href="./api/java/">Java</a></strong></td><td>8</td><td><code>org.cnab:cnab-core</code></td><td>17</td><td class="num">46</td></tr>
+    <tr><td><strong><a href="./api/csharp/">.NET</a></strong></td><td>6.0</td><td><code>Cnab.Core</code></td><td>8.0</td><td class="num">50</td></tr>
+    <tr><td><strong>Go</strong></td><td>1.25</td><td><span class="no">not distributed yet</span> — <a href="https://github.com/cnab/CNAB-SDK/issues/41">#41</a></td><td>1.25</td><td class="num">11</td></tr>
   </tbody>
 </table>
 </div>
@@ -236,6 +236,47 @@
   and talks to it. Node is a dependency of your <em>application</em>, not just of
   your build. The jsii runtime asks for <strong>Node ≥ 20.16</strong>, so that is
   the practical floor for non-Node consumers.
+</div>
+
+<h2>Large files</h2>
+
+<p>
+  <code>parse</code> returns one object per line. In Node that is fine. Outside
+  Node every one of those objects crosses the jsii boundary individually, and
+  that cost dominates everything else: a 200,000-line retorno takes
+  <strong>about six minutes in Python</strong>, and Java and .NET use the same
+  kernel, so they behave the same way.
+</p>
+
+<p>
+  Use <code>parseToJson</code> instead, and <strong>feed it a few thousand lines
+  at a time</strong>. It returns the whole result as one JSON document that your
+  language decodes in-process, turning N crossings into one. The chunking is not
+  a workaround — the boundary degrades on large strings in both directions, so a
+  single call carrying a whole 76&nbsp;MB file spends most of its time just
+  transporting the input.
+</p>
+
+<div class="table-scroll">
+<table>
+  <thead>
+    <tr><th>200,000 lines (76 MB)</th><th><code>parse</code></th><th><code>parseToJson</code>, chunked</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Python</td><td class="no">~352 s</td><td class="yes">8.5 s</td></tr>
+    <tr><td>Node</td><td>5.8 s, <span class="no">625 MB retained</span></td><td class="yes">4 MB peak</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note">
+  <strong>Know the ceiling before you design around it.</strong>
+  Outside Node the floor is roughly <strong>0.04 ms per line</strong>, because
+  the jsii kernel serialises over stdio. Anything faster has to run in Node.
+  The file must also fit in memory as a single string in your host language
+  before you chunk it — <strong>streaming a file larger than memory is not
+  supported</strong>. Details and the measurements are in
+  <a href="https://github.com/cnab/CNAB-SDK/blob/main/docs/adrs/0010-large-file-parsing-across-the-jsii-boundary.md">ADR 0010</a>.
 </div>
 
 <h2>Coverage</h2>
@@ -272,7 +313,7 @@
 </p>
 
 <h3>Node.js</h3>
-<pre><code>npm install ./cnab-core-0.4.0.tgz
+<pre><code>npm install ./cnab-core-0.5.0.tgz
 
 const { CnabSpec } = require('@cnab/core');
 
@@ -288,7 +329,7 @@ const back = record.parse(line);             // { valor_titulo: '150000', ... }
 </code></pre>
 
 <h3>Python</h3>
-<pre><code>pip install ./cnab_core-0.4.0-py3-none-any.whl
+<pre><code>pip install ./cnab_core-0.5.0-py3-none-any.whl
 
 import cnab_core as c
 
