@@ -132,7 +132,7 @@
     </div>
     <div class="badges">
       <span class="badge">v0.5.0</span>
-      <span class="badge">55 records</span>
+      <span class="badge">92 records</span>
       <span class="badge">5 banks</span>
       <span class="badge">407 tests</span>
       <span class="badge">MIT</span>
@@ -211,7 +211,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td><strong><a href="./api/typescript/">Node.js / TypeScript</a></strong></td><td>18</td><td><code>@cnab/core</code>, <code>@cnab/spec</code>, <code>@cnab/cli</code></td><td>22</td><td class="num">242</td></tr>
+    <tr><td><strong><a href="./api/typescript/">Node.js / TypeScript</a></strong></td><td>18</td><td><code>@cnab/core</code>, <code>@cnab/spec</code>, <code>@cnab/cli</code></td><td>22</td><td class="num">316</td></tr>
     <tr><td><strong><a href="./api/python/">Python</a></strong></td><td>3.10</td><td><code>cnab-core</code> → <code>import cnab_core</code></td><td>3.11</td><td class="num">58</td></tr>
     <tr><td><strong><a href="./api/java/">Java</a></strong></td><td>8</td><td><code>org.cnab:cnab-core</code></td><td>17</td><td class="num">46</td></tr>
     <tr><td><strong><a href="./api/csharp/">.NET</a></strong></td><td>6.0</td><td><code>Cnab.Core</code></td><td>8.0</td><td class="num">50</td></tr>
@@ -287,22 +287,43 @@
     <tr><th>Bank</th><th>Code</th><th>CNAB 240</th><th>CNAB 400</th></tr>
   </thead>
   <tbody>
-    <tr><td>Caixa Econômica Federal</td><td><code>104</code></td><td class="yes">✓ SIGCB</td><td class="yes">✓</td></tr>
-    <tr><td>Santander</td><td><code>033</code></td><td class="yes">✓</td><td class="no">—</td></tr>
-    <tr><td>Banco do Brasil</td><td><code>001</code></td><td class="yes">✓</td><td class="yes">✓</td></tr>
-    <tr><td>Itaú</td><td><code>341</code></td><td class="no">—</td><td class="yes">✓</td></tr>
-    <tr><td>Bradesco</td><td><code>237</code></td><td class="no">—</td><td class="yes">✓</td></tr>
+    <tr><td>Caixa Econômica Federal</td><td><code>104</code></td><td class="yes">✓ remessa + retorno (SIGCB)</td><td class="yes">✓ remessa + retorno</td></tr>
+    <tr><td>Santander</td><td><code>033</code></td><td class="yes">✓ remessa + retorno</td><td class="yes">✓ remessa + retorno</td></tr>
+    <tr><td>Itaú</td><td><code>341</code></td><td class="yes">✓ remessa + retorno</td><td class="yes">✓ remessa + retorno</td></tr>
+    <tr><td>Banco do Brasil</td><td><code>001</code></td><td class="no">⚠ 3 records, no trailers</td><td class="yes">✓ remessa + retorno</td></tr>
+    <tr><td>Bradesco</td><td><code>237</code></td><td class="no">⚠ draft (2013 manual)</td><td class="yes">✓ remessa + retorno</td></tr>
   </tbody>
 </table>
 </div>
 
 <p>
-  <strong>55 records</strong> (37 bank-specific + 18 generic FEBRABAN templates),
-  <strong>6 code tables</strong> and <strong>277 catalog fields</strong>. Every
-  shipped record has a golden-line test and round-trip property tests. More banks
-  are tracked in <a href="https://github.com/cnab/CNAB-SDK/issues/5">#5</a> — each
-  needs the bank's official manual, because guessing positions is how silent
-  corruption gets in.
+  <strong>92 records</strong> (74 bank-specific + 18 generic FEBRABAN templates),
+  <strong>6 code tables</strong> and <strong>318 catalog fields</strong>. Every
+  shipped record has a golden-line test and round-trip property tests.
+  <strong>Every bank can both read and write CNAB 400.</strong>
+</p>
+
+<p>
+  Read the two ⚠ cells before planning around the table.
+  <strong>Bradesco's CNAB 240 is a draft</strong> — it comes from version 02 of a
+  manual the bank now publishes as version 09, so review it against a current
+  document before generating a real remessa
+  (<a href="https://github.com/cnab/CNAB-SDK/issues/71">#71</a>); its CNAB 400 is
+  not affected. <strong>Banco do Brasil's CNAB 240 is three records</strong> with
+  no trailers, so a file cannot be closed with bank-specific records alone; its
+  CNAB 400 is complete both ways.
+</p>
+
+<p>
+  Every position comes from that bank's own cobrança manual, and each one is
+  pinned by commit and checksum in
+  <a href="https://github.com/cnab/CNAB-SDK/blob/main/docs/layouts/README.md"><code>docs/layouts</code></a>,
+  along with how much of each record has been cross-checked against it. More
+  banks are tracked in
+  <a href="https://github.com/cnab/CNAB-SDK/issues/5">#5</a> — each needs the
+  bank's official manual, because guessing positions is how silent corruption
+  gets in: a wrong position produces a plausible, wrong number rather than an
+  error.
 </p>
 
 <h2>Quick start</h2>
